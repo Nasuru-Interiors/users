@@ -15,15 +15,12 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center">
-      <h1 className="text-2xl font-bold text-brand-ink">Something went wrong</h1>
-      <p className="mt-2 text-gray-500">
+    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-brand-bg px-5 text-center">
+      <h1 className="font-serif text-2xl font-semibold text-brand-ink">Something went wrong</h1>
+      <p className="mt-2 text-brand-muted">
         We hit an unexpected error. Please try again in a moment.
       </p>
-      <button
-        onClick={reset}
-        className="mt-6 rounded-full bg-brand-primary px-6 py-3 text-sm font-bold text-white"
-      >
+      <button onClick={reset} className="btn-primary mt-8">
         Try again
       </button>
     </div>

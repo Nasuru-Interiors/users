@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",
     start_url: '/',
     display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#E10600',
+    background_color: '#FBF6F4',
+    theme_color: '#7B1E2B',
     icons: [],
   };
 }

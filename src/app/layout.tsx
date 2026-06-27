@@ -1,8 +1,23 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter, Fraunces } from 'next/font/google';
 import './globals.css';
 
+const sans = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
+
+// Elegant variable serif for headings — gives the brand a premium, editorial feel.
+const serif = Fraunces({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-serif',
+  axes: ['opsz'],
+});
+
 export const viewport: Viewport = {
-  themeColor: '#E10600',
+  themeColor: '#7B1E2B',
   width: 'device-width',
   initialScale: 1,
 };
@@ -53,11 +68,19 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettings();
 
-  // Feed admin-chosen brand colors into CSS variables (red/white system).
-  const themeVars = `:root{--brand-primary:${settings.primary_color};--brand-secondary:${settings.secondary_color};}`;
+  // Feed admin-chosen brand colors into CSS variables as "R G B" channels (so
+  // Tailwind opacity modifiers keep working). Gold/background/ink are fixed
+  // design tokens set in globals.css, preserving the luxury palette.
+  const channels = (hex: string, fallback: string) => {
+    const h = (hex || '').replace('#', '');
+    const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+    if (!/^[0-9a-fA-F]{6}$/.test(full)) return fallback;
+    return `${parseInt(full.slice(0, 2), 16)} ${parseInt(full.slice(2, 4), 16)} ${parseInt(full.slice(4, 6), 16)}`;
+  };
+  const themeVars = `:root{--brand-primary:${channels(settings.primary_color, '123 30 43')};--brand-secondary:${channels(settings.secondary_color, '255 255 255')};}`;
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <head>
         {/* Warm up the Cloudinary connection early so the LCP image lands faster. */}
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />

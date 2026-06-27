@@ -3,20 +3,20 @@ import Image from 'next/image';
 import type { HeroSettings, SiteSettings } from '@/lib/types';
 
 /**
- * Admin-designed hero. When background_type is "image" and an image exists, it
- * renders the Cloudinary image with an overlay. Otherwise it falls back to a
- * solid color (admin-set background_color / default_hero_color).
+ * Admin-designed hero. With background_type "image" + an image it renders the
+ * Cloudinary image under a burgundy gradient; otherwise it falls back to a rich
+ * solid-color background (admin-set background_color / default_hero_color).
  */
 export default function Hero({ hero, settings }: { hero: HeroSettings; settings: SiteSettings }) {
   const useImage = hero.background_type === 'image' && !!hero.image_url;
-  const fallbackColor = hero.background_color || settings.default_hero_color || '#E10600';
+  const fallbackColor = hero.background_color || settings.default_hero_color || '#7B1E2B';
 
   return (
     <section
-      className="relative flex min-h-[88vh] items-center justify-center overflow-hidden"
+      className="relative flex min-h-[92vh] items-center overflow-hidden"
       style={!useImage ? { backgroundColor: fallbackColor } : undefined}
     >
-      {useImage && (
+      {useImage ? (
         <>
           <Image
             src={hero.image_url as string}
@@ -24,50 +24,64 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="animate-kenburns object-cover"
           />
+          {/* Burgundy gradient for legibility + brand warmth */}
           <div
             className="absolute inset-0"
-            style={{ backgroundColor: '#000', opacity: hero.overlay_opacity }}
+            style={{
+              background: `linear-gradient(105deg, rgba(74,14,26,${0.55 + hero.overlay_opacity * 0.4}) 0%, rgba(74,14,26,${hero.overlay_opacity * 0.6}) 55%, rgba(42,20,24,0.35) 100%)`,
+            }}
           />
         </>
+      ) : (
+        // Subtle radial sheen + gold hairline on the solid-color hero
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(120% 120% at 80% 10%, rgba(201,162,39,0.18) 0%, rgba(201,162,39,0) 45%), linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(42,20,24,0.35) 100%)',
+          }}
+        />
       )}
 
-      <div className="relative z-10 mx-auto max-w-3xl px-5 text-center animate-fade-in">
-        <h1
-          className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl"
-          style={{ color: hero.text_color || '#FFFFFF' }}
-        >
-          {hero.heading}
-        </h1>
-        {hero.subheading && (
-          <p
-            className="mx-auto mt-5 max-w-2xl text-base sm:text-lg"
-            style={{ color: hero.text_color || '#FFFFFF', opacity: 0.92 }}
+      <div className="relative z-10 mx-auto w-full max-w-content px-5">
+        <div className="max-w-2xl animate-fade-up">
+          <span className="eyebrow mb-5" style={{ color: '#E9C75A' }}>
+            Lagos · Nigeria
+          </span>
+          <h1
+            className="font-serif text-4xl font-semibold leading-[1.08] sm:text-5xl md:text-6xl"
+            style={{ color: hero.text_color || '#FFFFFF' }}
           >
-            {hero.subheading}
-          </p>
-        )}
+            {hero.heading}
+          </h1>
+          {hero.subheading && (
+            <p
+              className="mt-6 max-w-xl text-base leading-relaxed sm:text-lg"
+              style={{ color: hero.text_color || '#FFFFFF', opacity: 0.9 }}
+            >
+              {hero.subheading}
+            </p>
+          )}
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          {hero.cta_label && (
-            <Link
-              href={hero.cta_href || '/about'}
-              className="rounded-full bg-white px-7 py-3 text-sm font-bold text-brand-primary shadow-lg transition-transform hover:scale-105"
-            >
-              {hero.cta_label}
-            </Link>
-          )}
-          {hero.secondary_cta_label && (
-            <Link
-              href={hero.secondary_cta_href || '/articles'}
-              className="rounded-full border-2 border-white px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-white hover:text-brand-primary"
-            >
-              {hero.secondary_cta_label}
-            </Link>
-          )}
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            {hero.cta_label && (
+              <Link href={hero.cta_href || '/about'} className="btn-gold px-8 py-3.5">
+                {hero.cta_label}
+              </Link>
+            )}
+            {hero.secondary_cta_label && (
+              <Link href={hero.secondary_cta_href || '/articles'} className="btn-outline px-8 py-3.5">
+                {hero.secondary_cta_label}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Gold hairline at the base of the hero */}
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-gold/60 to-transparent" />
     </section>
   );
 }
