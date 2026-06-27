@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #e10600;
+  --brand-secondary: #ffffff;
+  --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+/* Rich-text (article) content rendered from Tiptap HTML */
+.prose-article h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.8rem;
+  color: #1a1a1a;
+}
+.prose-article h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1.4rem 0 0.6rem;
+}
+.prose-article p {
+  margin: 0 0 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+.prose-article a {
+  color: var(--brand-primary);
+  text-decoration: underline;
+}
+.prose-article ul,
+.prose-article ol {
+  margin: 0 0 1.1rem 1.4rem;
+  line-height: 1.8;
+}
+.prose-article ul { list-style: disc; }
+.prose-article ol { list-style: decimal; }
+.prose-article img {
+  border-radius: 0.75rem;
+  margin: 1.5rem 0;
+  max-width: 100%;
+  height: auto;
+}
+.prose-article blockquote {
+  border-left: 4px solid var(--brand-primary);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: #555;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.5s ease-out both; }
