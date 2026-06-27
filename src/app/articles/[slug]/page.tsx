@@ -70,7 +70,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       />
 
       {/* Hero / cover */}
-      <header className="relative bg-brand-ink pb-12 pt-32 text-white">
+      <header className="relative bg-brand-deep pb-14 pt-36 text-white">
         {article.cover_image_url && (
           <>
             <Image
@@ -85,17 +85,17 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           </>
         )}
         <div className="relative mx-auto max-w-3xl px-5">
-          <Link href="/articles" className="text-sm font-semibold text-white/80 hover:text-white">
+          <Link href="/articles" className="text-sm font-semibold text-brand-gold transition-colors hover:text-white">
             ← Back to articles
           </Link>
-          <h1 className="mt-4 text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
+          <h1 className="mt-5 font-serif text-3xl font-semibold leading-[1.12] sm:text-4xl md:text-5xl">
             {article.title}
           </h1>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-white/80">
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-white/75">
             <span>{article.author}</span>
-            <span>•</span>
+            <span className="text-brand-gold">•</span>
             <span>{formatDate(article.published_at)}</span>
-            <span>•</span>
+            <span className="text-brand-gold">•</span>
             <span>{article.reading_minutes} min read</span>
           </div>
         </div>
@@ -107,10 +107,13 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       />
 
       {related.length > 0 && (
-        <section className="border-t border-gray-100 bg-gray-50 py-14">
+        <section className="border-t border-brand-ink/8 bg-brand-bg py-16">
           <div className="mx-auto max-w-content px-5">
-            <h2 className="mb-8 text-2xl font-extrabold text-brand-ink">Related Articles</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <span className="eyebrow">Keep reading</span>
+            <h2 className="mb-8 mt-3 font-serif text-2xl font-semibold text-brand-ink sm:text-3xl">
+              Related Articles
+            </h2>
+            <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((a) => (
                 <ArticleCard key={a.id} article={a} />
               ))}

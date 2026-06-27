@@ -9,7 +9,7 @@ export const revalidate = 60;
 const FEATURES = [
   {
     title: 'Premium Aluminium',
-    text: 'Long-span, weather-proof aluminium roofing sheets built for the Nigerian climate.',
+    text: 'Long-span, weather-proof aluminium roofing sheets engineered for the Nigerian climate.',
   },
   {
     title: 'Supply & Installation',
@@ -34,52 +34,63 @@ export default async function HomePage() {
       <Hero hero={hero} settings={settings} />
 
       {/* Value props */}
-      <section className="bg-white py-16">
-        <div className="mx-auto grid max-w-content gap-6 px-5 md:grid-cols-3">
-          {FEATURES.map((f) => (
-            <div
-              key={f.title}
-              className="rounded-2xl border border-gray-100 p-7 shadow-sm transition-shadow hover:shadow-md"
-            >
-              <div className="mb-4 h-12 w-12 rounded-xl bg-brand-primary/10" />
-              <h3 className="text-lg font-bold text-brand-ink">{f.title}</h3>
-              <p className="mt-2 text-sm text-gray-500">{f.text}</p>
-            </div>
-          ))}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-content px-5">
+          <div className="grid gap-6 md:grid-cols-3">
+            {FEATURES.map((f, i) => (
+              <div
+                key={f.title}
+                className="group rounded-2xl border border-brand-ink/8 bg-brand-bg p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card"
+              >
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/10 font-serif text-lg font-semibold text-brand-primary transition-colors group-hover:bg-brand-gold group-hover:text-brand-ink">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-brand-ink">{f.title}</h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-brand-muted">{f.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <Carousel images={carousel} />
 
       {/* SEO intro copy */}
-      <section className="bg-gray-50 py-16">
+      <section className="relative overflow-hidden bg-white py-24">
         <div className="mx-auto max-w-3xl px-5 text-center">
-          <h2 className="text-3xl font-extrabold text-brand-ink">
+          <span className="eyebrow justify-center">Why First Choice</span>
+          <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-brand-ink sm:text-4xl">
             Nigeria&apos;s Leading Aluminium Roofing Sheet Supplier
           </h2>
-          <p className="mt-4 text-gray-600">
+          <p className="mt-5 text-lg leading-relaxed text-brand-muted">
             Based in Lagos, {settings.business_name} supplies and installs premium aluminium roofing
             sheets for homes, offices and industrial buildings across Nigeria. From long-span and
             step-tile to stone-coated profiles, we deliver durable, rust-resistant roofing at
             competitive prices — backed by expert advice and reliable service.
           </p>
+          <div className="mx-auto mt-8 h-px w-24 bg-brand-gold" />
         </div>
       </section>
 
       {/* Latest articles */}
       {latest.items.length > 0 && (
-        <section className="bg-white py-16">
+        <section className="bg-brand-bg py-20">
           <div className="mx-auto max-w-content px-5">
-            <div className="mb-8 flex items-end justify-between">
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <h2 className="text-3xl font-extrabold text-brand-ink">Latest Articles</h2>
-                <p className="mt-1 text-gray-500">The 6 newest roofing tips, guides and product insights.</p>
+                <span className="eyebrow">From the Blog</span>
+                <h2 className="mt-3 font-serif text-3xl font-semibold text-brand-ink sm:text-4xl">
+                  Latest Articles
+                </h2>
+                <p className="mt-2 text-brand-muted">
+                  The 6 newest roofing tips, guides and product insights.
+                </p>
               </div>
-              <Link href="/articles" className="text-sm font-semibold text-brand-primary">
-                View all →
+              <Link href="/articles" className="btn-ghost">
+                View all articles
               </Link>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
               {latest.items.map((a) => (
                 <ArticleCard key={a.id} article={a} />
               ))}
@@ -89,16 +100,23 @@ export default async function HomePage() {
       )}
 
       {/* CTA */}
-      <section className="bg-brand-primary py-16 text-center text-white">
-        <div className="mx-auto max-w-2xl px-5">
-          <h2 className="text-3xl font-extrabold">Ready to roof with the best?</h2>
-          <p className="mt-3 text-white/90">
+      <section className="relative overflow-hidden bg-brand-deep py-20 text-center text-white">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(80% 120% at 50% 0%, rgba(201,162,39,0.18) 0%, rgba(201,162,39,0) 55%)',
+          }}
+        />
+        <div className="relative mx-auto max-w-2xl px-5">
+          <span className="eyebrow justify-center">Get Started</span>
+          <h2 className="mt-4 font-serif text-3xl font-semibold sm:text-4xl">
+            Ready to roof with the best?
+          </h2>
+          <p className="mt-3 text-white/80">
             Get a free quote on premium aluminium roofing sheets today.
           </p>
-          <Link
-            href="/about"
-            className="mt-6 inline-block rounded-full bg-white px-8 py-3 text-sm font-bold text-brand-primary transition-transform hover:scale-105"
-          >
+          <Link href="/about" className="btn-gold mt-8 px-9 py-3.5">
             Contact Us
           </Link>
         </div>

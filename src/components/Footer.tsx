@@ -10,41 +10,43 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
   ].filter((s) => s.url);
 
   return (
-    <footer className="bg-brand-ink text-white">
-      <div className="mx-auto grid max-w-content gap-8 px-5 py-12 md:grid-cols-3">
+    <footer className="bg-brand-deep text-white">
+      {/* Gold hairline */}
+      <div className="h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent" />
+
+      <div className="mx-auto grid max-w-content gap-10 px-5 py-16 md:grid-cols-3">
         <div>
-          <h3 className="text-lg font-extrabold text-brand-primary">{settings.business_name}</h3>
-          <p className="mt-2 max-w-xs text-sm text-gray-300">{settings.tagline}</p>
+          <h3 className="font-serif text-2xl font-semibold">
+            {settings.business_name.split(' ').slice(0, 2).join(' ')}
+            <span className="text-brand-gold"> {settings.business_name.split(' ').slice(2).join(' ')}</span>
+          </h3>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">{settings.tagline}</p>
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-gray-200">Explore</h4>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li><Link href="/" className="hover:text-white">Home</Link></li>
-            <li><Link href="/articles" className="hover:text-white">Articles</Link></li>
-            <li><Link href="/about" className="hover:text-white">About Us</Link></li>
+          <h4 className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Explore</h4>
+          <ul className="space-y-2.5 text-sm text-white/75">
+            <li><Link href="/" className="transition-colors hover:text-white">Home</Link></li>
+            <li><Link href="/articles" className="transition-colors hover:text-white">Articles</Link></li>
+            <li><Link href="/about" className="transition-colors hover:text-white">About Us</Link></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-gray-200">Contact</h4>
-          <ul className="space-y-2 text-sm text-gray-300">
+          <h4 className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Contact</h4>
+          <ul className="space-y-2.5 text-sm text-white/75">
             {settings.address && <li>{settings.address}</li>}
             {settings.phone && (
-              <li>
-                <a href={`tel:${settings.phone}`} className="hover:text-white">{settings.phone}</a>
-              </li>
+              <li><a href={`tel:${settings.phone}`} className="transition-colors hover:text-white">{settings.phone}</a></li>
             )}
             {settings.email && (
-              <li>
-                <a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a>
-              </li>
+              <li><a href={`mailto:${settings.email}`} className="transition-colors hover:text-white">{settings.email}</a></li>
             )}
             {settings.whatsapp && (
               <li>
                 <a
                   href={`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}`}
-                  className="hover:text-white"
+                  className="transition-colors hover:text-white"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -54,14 +56,14 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             )}
           </ul>
           {socials.length > 0 && (
-            <div className="mt-4 flex gap-3 text-sm">
+            <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
               {socials.map((s) => (
                 <a
                   key={s.label}
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-brand-primary"
+                  className="text-white/75 transition-colors hover:text-brand-gold"
                 >
                   {s.label}
                 </a>
@@ -71,8 +73,8 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-5 text-center text-xs text-gray-400">
-        © {new Date().getFullYear()} {settings.business_name}. Aluminium roofing sheets in Lagos, Nigeria.
+      <div className="border-t border-white/10 py-6 text-center text-xs text-white/50">
+        © {new Date().getFullYear()} {settings.business_name}. Premium aluminium roofing sheets in Lagos, Nigeria.
       </div>
     </footer>
   );

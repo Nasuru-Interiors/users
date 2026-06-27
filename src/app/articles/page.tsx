@@ -30,51 +30,53 @@ export default async function ArticlesPage({
   const data = await getArticles(page, 9);
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-brand-bg">
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', url: '/' }, { name: 'Articles', url: '/articles' }])} />
 
-      {/* Page header (red band; sits under the transparent header) */}
-      <section className="bg-brand-primary pb-14 pt-32 text-center text-white">
-        <div className="mx-auto max-w-2xl px-5">
-          <h1 className="text-4xl font-extrabold sm:text-5xl">Roofing Articles & Guides</h1>
-          <p className="mt-3 text-white/90">
-            Insights on aluminium roofing sheets, installation and maintenance in Nigeria.
+      {/* Page header (burgundy band; sits under the transparent header) */}
+      <section className="relative overflow-hidden bg-brand-deep pb-20 pt-36 text-center text-white">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(90% 130% at 50% 0%, rgba(201,162,39,0.18) 0%, rgba(201,162,39,0) 55%)',
+          }}
+        />
+        <div className="relative mx-auto max-w-2xl px-5">
+          <span className="eyebrow justify-center">Insights & Guides</span>
+          <h1 className="mt-4 font-serif text-4xl font-semibold sm:text-5xl">Roofing Articles & Guides</h1>
+          <p className="mt-4 text-white/80">
+            Expert insights on aluminium roofing sheets, installation and maintenance in Nigeria.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-content px-5 py-14">
+      <section className="mx-auto max-w-content px-5 py-16">
         {data.items.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-gray-300 bg-white py-20 text-center">
-            <p className="text-lg font-semibold text-brand-ink">No articles published yet</p>
-            <p className="mt-2 text-sm text-gray-500">Check back soon for roofing tips and guides.</p>
+          <div className="rounded-3xl border border-dashed border-brand-ink/15 bg-white py-24 text-center">
+            <p className="font-serif text-xl font-semibold text-brand-ink">No articles published yet</p>
+            <p className="mt-2 text-sm text-brand-muted">Check back soon for roofing tips and guides.</p>
           </div>
         ) : (
           <>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
               {data.items.map((a) => (
                 <ArticleCard key={a.id} article={a} />
               ))}
             </div>
 
             {data.totalPages > 1 && (
-              <div className="mt-12 flex items-center justify-center gap-3">
+              <div className="mt-14 flex items-center justify-center gap-4">
                 {page > 1 && (
-                  <Link
-                    href={`/articles?page=${page - 1}`}
-                    className="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold text-brand-ink hover:border-brand-primary"
-                  >
+                  <Link href={`/articles?page=${page - 1}`} className="btn-ghost">
                     ← Previous
                   </Link>
                 )}
-                <span className="text-sm text-gray-500">
+                <span className="text-sm font-medium text-brand-muted">
                   Page {page} of {data.totalPages}
                 </span>
                 {page < data.totalPages && (
-                  <Link
-                    href={`/articles?page=${page + 1}`}
-                    className="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold text-brand-ink hover:border-brand-primary"
-                  >
+                  <Link href={`/articles?page=${page + 1}`} className="btn-ghost">
                     Next →
                   </Link>
                 )}
