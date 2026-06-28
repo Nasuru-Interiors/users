@@ -16,15 +16,22 @@ const WhatsAppGlyph = ({ size = 22 }: { size?: number }) => (
 export default function FloatingActions({
   whatsapp,
   businessName,
+  greeting,
 }: {
   whatsapp: string;
   businessName: string;
+  greeting?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [showTop, setShowTop] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
   const [message, setMessage] = useState('');
   const ref = useRef<HTMLDivElement>(null);
   const digits = (whatsapp || '').replace(/\D/g, '');
+  const greetingText =
+    greeting?.trim() ||
+    `Welcome to ${businessName}. How can we help you with your roofing today?`;
+  const showBadge = !open && !dismissed;
 
   useEffect(() => {
     let raf = 0;
@@ -103,9 +110,7 @@ export default function FloatingActions({
             <div className="bg-[#ECE5DD] px-4 py-5">
               <div className="relative max-w-[85%] bg-white px-3.5 py-2.5 text-sm text-brand-ink shadow-sm">
                 <p className="font-semibold">Hi there 👋</p>
-                <p className="mt-0.5 text-brand-muted">
-                  Welcome to {businessName}. How can we help you with your roofing today?
-                </p>
+                <p className="mt-0.5 text-brand-muted">{greetingText}</p>
               </div>
             </div>
 
@@ -127,14 +132,29 @@ export default function FloatingActions({
           </div>
 
           {/* Launcher bubble */}
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? 'Close WhatsApp chat' : 'Chat on WhatsApp'}
-            aria-expanded={open}
-            className="flex h-14 w-14 items-center justify-center bg-[#25D366] text-white shadow-card transition-transform hover:-translate-y-0.5"
-          >
-            {open ? <X size={26} /> : <WhatsAppGlyph size={28} />}
-          </button>
+          <div className="relative">
+            {showBadge && (
+              <>
+                {/* Pulse ring (disabled for reduced motion) */}
+                <span className="absolute inset-0 -z-10 animate-ping bg-[#25D366] opacity-40 motion-reduce:hidden" />
+                {/* Unread badge */}
+                <span className="absolute -right-1 -top-1 z-10 flex h-5 w-5 items-center justify-center bg-brand-primary text-[11px] font-bold text-white shadow">
+                  1
+                </span>
+              </>
+            )}
+            <button
+              onClick={() => {
+                setOpen((v) => !v);
+                setDismissed(true);
+              }}
+              aria-label={open ? 'Close WhatsApp chat' : 'Chat on WhatsApp'}
+              aria-expanded={open}
+              className="relative flex h-14 w-14 items-center justify-center bg-[#25D366] text-white shadow-card transition-transform hover:-translate-y-0.5"
+            >
+              {open ? <X size={26} /> : <WhatsAppGlyph size={28} />}
+            </button>
+          </div>
         </>
       )}
     </div>
