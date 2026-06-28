@@ -103,7 +103,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Header settings={settings} />
         <main>{children}</main>
         <Footer settings={settings} />
-        <FloatingActions whatsapp={settings.whatsapp} businessName={settings.business_name} />
+        <FloatingActions
+          whatsapp={settings.whatsapp}
+          businessName={settings.business_name}
+          greeting={settings.whatsapp_greeting}
+        />
       </body>
     </html>
   );

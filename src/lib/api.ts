@@ -33,6 +33,8 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   default_hero_color: '#7B1E2B',
   phone: '',
   whatsapp: '',
+  whatsapp_greeting:
+    'Welcome to First Choice Roofing Services. How can we help you with your aluminium roofing today?',
   email: '',
   address: 'Lagos, Nigeria',
   city: 'Lagos',
