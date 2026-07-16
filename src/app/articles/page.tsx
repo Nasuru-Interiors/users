@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getArticles, getSiteSettings } from '@/lib/api';
+import { getArticles, getCategories, getSiteSettings } from '@/lib/api';
 import ArticleCard from '@/components/ArticleCard';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbJsonLd } from '@/lib/seo';
@@ -24,10 +24,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ArticlesPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: { page?: string; category?: string };
 }) {
   const page = Math.max(1, parseInt(searchParams.page || '1', 10));
-  const data = await getArticles(page, 9);
+  const category = searchParams.category;
+  const [data, categories] = await Promise.all([
+    getArticles(page, 9, false, category),
+    getCategories(),
+  ]);
+  const qs = (p: number) => `/articles?page=${p}${category ? `&category=${category}` : ''}`;
 
   return (
     <div className="bg-brand-bg">
@@ -52,6 +57,34 @@ export default async function ArticlesPage({
       </section>
 
       <section className="mx-auto max-w-content px-5 py-16">
+        {categories.length > 0 && (
+          <div className="mb-10 flex flex-wrap justify-center gap-2.5">
+            <Link
+              href="/articles"
+              className={`border px-4 py-2 text-sm font-semibold transition-colors ${
+                !category
+                  ? 'border-brand-primary bg-brand-primary text-white'
+                  : 'border-brand-ink/15 text-brand-ink hover:border-brand-primary hover:text-brand-primary'
+              }`}
+            >
+              All
+            </Link>
+            {categories.map((c) => (
+              <Link
+                key={c.id}
+                href={`/articles?category=${c.slug}`}
+                className={`border px-4 py-2 text-sm font-semibold transition-colors ${
+                  category === c.slug
+                    ? 'border-brand-primary bg-brand-primary text-white'
+                    : 'border-brand-ink/15 text-brand-ink hover:border-brand-primary hover:text-brand-primary'
+                }`}
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
+        )}
+
         {data.items.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-brand-ink/15 bg-white py-24 text-center">
             <p className="font-serif text-xl font-semibold text-brand-ink">No articles published yet</p>
@@ -68,7 +101,7 @@ export default async function ArticlesPage({
             {data.totalPages > 1 && (
               <div className="mt-14 flex items-center justify-center gap-4">
                 {page > 1 && (
-                  <Link href={`/articles?page=${page - 1}`} className="btn-ghost">
+                  <Link href={qs(page - 1)} className="btn-ghost">
                     ← Previous
                   </Link>
                 )}
@@ -76,7 +109,7 @@ export default async function ArticlesPage({
                   Page {page} of {data.totalPages}
                 </span>
                 {page < data.totalPages && (
-                  <Link href={`/articles?page=${page + 1}`} className="btn-ghost">
+                  <Link href={qs(page + 1)} className="btn-ghost">
                     Next →
                   </Link>
                 )}

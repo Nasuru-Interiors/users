@@ -37,6 +37,13 @@ export interface HeroSettings {
   image_url: string | null;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+}
+
 export interface CarouselImage {
   id: string;
   image_url: string;

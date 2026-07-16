@@ -3,6 +3,7 @@ import type {
   Article,
   ArticleSummary,
   CarouselImage,
+  Category,
   HeroSettings,
   Paginated,
   SiteSettings,
@@ -85,9 +86,13 @@ export const getAbout = () =>
     team: [],
   });
 
-export const getArticles = (page = 1, limit = 9, featured = false) =>
+export const getCategories = () => get<Category[]>('/categories', []);
+
+export const getArticles = (page = 1, limit = 9, featured = false, category?: string) =>
   get<Paginated<ArticleSummary>>(
-    `/articles?page=${page}&limit=${limit}${featured ? '&featured=true' : ''}`,
+    `/articles?page=${page}&limit=${limit}${featured ? '&featured=true' : ''}${
+      category ? `&category=${encodeURIComponent(category)}` : ''
+    }`,
     { items: [], page, limit, total: 0, totalPages: 0 },
   );
 
