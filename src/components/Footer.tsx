@@ -7,6 +7,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
     { label: 'Instagram', url: settings.instagram_url },
     { label: 'Twitter', url: settings.twitter_url },
     { label: 'LinkedIn', url: settings.linkedin_url },
+    { label: 'TikTok', url: settings.tiktok_url },
   ].filter((s) => s.url);
 
   return (
