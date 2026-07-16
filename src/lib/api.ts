@@ -47,6 +47,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   instagram_url: '',
   twitter_url: '',
   linkedin_url: '',
+  tiktok_url: '',
   default_meta_title:
     'First Choice Roofing Services — Aluminium Roofing Sheets in Lagos, Nigeria',
   default_meta_description:
