@@ -22,6 +22,7 @@ export interface SiteSettings {
   tiktok_url: string;
   default_meta_title: string;
   default_meta_description: string;
+  copyright_text?: string;
 }
 
 export interface HeroSettings {
