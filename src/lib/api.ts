@@ -52,6 +52,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
     'First Choice Roofing Services — Aluminium Roofing Sheets in Lagos, Nigeria',
   default_meta_description:
     "First Choice Roofing Services is Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",
+  copyright_text: '',
 };
 
 const DEFAULT_HERO: HeroSettings = {
@@ -78,12 +79,18 @@ export const getCarousel = () => get<CarouselImage[]>('/carousel', []);
 
 export const getAbout = () =>
   get<AboutContent>('/about', {
-    headline: 'About First Choice Roofing Services',
-    subheading: 'Trusted aluminium roofing sheet supplier in Lagos, Nigeria.',
+    headline: 'About {business_name}',
+    subheading:
+      "Lagos, Nigeria's Premier Supplier & Installer of Premium Long-Span, Stone-Coated, and Custom Aluminium Roofing Sheets",
     body_html:
-      '<p>First Choice Roofing Services is a leading supplier of premium aluminium roofing sheets in Lagos, Nigeria.</p>',
+      '<p>Welcome to <strong>{business_name}</strong>, your premier partner for high-grade aluminium roofing solutions in Lagos and across Nigeria. Built on uncompromised structural integrity and modern architectural aesthetics, <strong>{business_name}</strong> supplies and installs top-quality aluminium roofing sheets engineered for tropical weather resilience.</p><h3>Our Core Products &amp; Capabilities</h3><p>At <strong>{business_name}</strong>, we provide a complete spectrum of roofing sheet designs tailored for residential homes, commercial complexes, and industrial developments:</p><ul><li><strong>Long-Span Aluminium Sheets:</strong> Precision-milled, rust-proof, and lightweight sheets ideal for modern homes and commercial buildings.</li><li><strong>Step-Tiles &amp; Metcoppo Profiles:</strong> Architecturally sophisticated roofing sheets that blend classic tile aesthetics with heavy-duty aluminium durability.</li><li><strong>Stone-Coated Roof Tiles:</strong> Premium stone-chip coated roofing tiles offering superior acoustic insulation and heat resistance.</li><li><strong>Custom Accessories &amp; Flashing:</strong> Matching gutters, ridge caps, fascia boards, and specialized flashing components engineered for zero-leakage protection.</li></ul><h3>Why Work With {business_name}?</h3><p>Selecting the right roof is a vital structural investment. Here is why property developers, site engineers, and homeowners across Lagos rely on <strong>{business_name}</strong>:</p><ul><li><strong>Certified Gauge Integrity:</strong> We guarantee true gauge thickness (0.45mm, 0.55mm, 0.70mm+) without compromises, ensuring maximum wind and corrosion resistance.</li><li><strong>Factory-Direct Rates:</strong> Direct partnerships with top aluminium coil manufacturers allow <strong>{business_name}</strong> to offer factory-direct pricing with no middleman markup.</li><li><strong>Turnkey Professional Installation:</strong> Certified roofing installers ensure precise structural alignment, watertight sealing, and long-lasting durability.</li><li><strong>Nationwide Logistics:</strong> Headquartered in Lagos, <strong>{business_name}</strong> delivers materials directly to project sites throughout Nigeria.</li></ul><h3>Our Quality Commitment</h3><p>Whether you are building your personal residence, renovating a commercial property, or managing a large housing development, <strong>{business_name}</strong> is committed to delivering roofing solutions that combine strength, beauty, and lasting value.</p>',
     image_url: null,
-    stats: [],
+    stats: [
+      { label: 'Industry Experience', value: '15+ Years' },
+      { label: 'Projects Delivered', value: '2,500+' },
+      { label: 'Leak-Free Guarantee', value: '100%' },
+      { label: 'States Covered', value: '36' },
+    ],
     team: [],
   });
 

@@ -8,16 +8,28 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSiteSettings();
+  const businessName = s.business_name || 'First Choice Roofing Services';
+
   return {
-    title: 'About Us',
-    description: `Learn about ${s.business_name} — Lagos, Nigeria's trusted supplier of premium aluminium roofing sheets.`,
+    title: `About Us | ${businessName}`,
+    description: `Discover how ${businessName} delivers certified gauge aluminium roofing sheets, step tiles, stone-coated tiles, and expert roof installation in Lagos and across Nigeria.`,
     alternates: { canonical: '/about' },
-    openGraph: { title: `About ${s.business_name}`, url: '/about' },
+    openGraph: {
+      title: `About ${businessName} — Aluminium Roofing Sheet Supplier in Lagos, Nigeria`,
+      description: `Learn about ${businessName}'s commitment to quality aluminium roofing sheets, factory-direct pricing, and professional installation.`,
+      url: '/about',
+    },
   };
 }
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()]);
+  const businessName = settings.business_name || 'First Choice Roofing Services';
+
+  // Replace {business_name} placeholders dynamically with the Business Name set by the admin
+  const headline = (about.headline || 'About {business_name}').replace(/{business_name}/gi, businessName);
+  const subheading = (about.subheading || '').replace(/{business_name}/gi, businessName);
+  const bodyHtml = (about.body_html || '').replace(/{business_name}/gi, businessName);
 
   return (
     <div className="bg-brand-bg">
@@ -33,8 +45,8 @@ export default async function AboutPage() {
         />
         <div className="relative mx-auto max-w-2xl px-5">
           <span className="eyebrow justify-center">Our Story</span>
-          <h1 className="mt-4 font-serif text-4xl font-semibold sm:text-5xl">{about.headline}</h1>
-          {about.subheading && <p className="mt-4 text-white/80">{about.subheading}</p>}
+          <h1 className="mt-4 font-serif text-4xl font-semibold sm:text-5xl">{headline}</h1>
+          {subheading && <p className="mt-4 text-white/80">{subheading}</p>}
         </div>
       </section>
 
@@ -42,13 +54,13 @@ export default async function AboutPage() {
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div
             className="prose-article"
-            dangerouslySetInnerHTML={{ __html: about.body_html }}
+            dangerouslySetInnerHTML={{ __html: bodyHtml }}
           />
           {about.image_url ? (
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg">
               <Image
                 src={about.image_url}
-                alt={settings.business_name}
+                alt={businessName}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
@@ -56,7 +68,7 @@ export default async function AboutPage() {
             </div>
           ) : (
             <div className="flex aspect-[4/3] items-center justify-center rounded-2xl bg-brand-primary/8 font-serif text-brand-primary">
-              <span className="font-semibold">{settings.business_name}</span>
+              <span className="font-semibold">{businessName}</span>
             </div>
           )}
         </div>
@@ -82,7 +94,7 @@ export default async function AboutPage() {
           <div className="mb-10 text-center">
             <span className="eyebrow justify-center">Contact</span>
             <h2 className="mt-3 font-serif text-3xl font-semibold text-brand-ink sm:text-4xl">
-              Get in Touch
+              Get in Touch with {businessName}
             </h2>
           </div>
           <div className="grid gap-6 text-center sm:grid-cols-3">
