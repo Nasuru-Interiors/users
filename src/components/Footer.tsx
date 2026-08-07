@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import type { SiteSettings } from '@/lib/types';
+import { formatAddress, formatBusinessName } from '@/lib/format';
 
 export default function Footer({ settings }: { settings?: Partial<SiteSettings> | null }) {
   const s = settings || {};
   const businessName = (s.business_name || 'First Choice Roofing Services').trim();
+  const { first: firstPart, second: secondPart } = formatBusinessName(businessName);
+  const displayAddress = formatAddress(s);
 
   // Social links filtering with safe type guard
   const socials = [
@@ -13,12 +16,6 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
     { label: 'LinkedIn', url: s.linkedin_url },
     { label: 'TikTok', url: s.tiktok_url },
   ].filter((item): item is { label: string; url: string } => Boolean(item.url && item.url.trim()));
-
-  // Split business name gracefully for styled rendering
-  const words = businessName.split(/\s+/);
-  const splitIndex = words.length > 1 ? Math.min(2, words.length - 1) : 1;
-  const firstPart = words.length > 1 ? words.slice(0, splitIndex).join(' ') : businessName;
-  const secondPart = words.length > 1 ? words.slice(splitIndex).join(' ') : '';
 
   // Copyright text calculation with dynamic placeholders
   const year = String(new Date().getFullYear());
@@ -57,7 +54,7 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
         <div>
           <h4 className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Contact</h4>
           <ul className="space-y-2.5 text-sm text-white/75">
-            {s.address && <li>{s.address}</li>}
+            {displayAddress && <li>{displayAddress}</li>}
             {s.phone && (
               <li><a href={`tel:${s.phone}`} className="transition-colors hover:text-white">{s.phone}</a></li>
             )}
