@@ -3,6 +3,7 @@ import { getAbout, getSiteSettings } from '@/lib/api';
 import Image from 'next/image';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbJsonLd } from '@/lib/seo';
+import { formatAddress } from '@/lib/format';
 
 export const revalidate = 60;
 
@@ -25,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()]);
   const businessName = settings.business_name || 'First Choice Roofing Services';
+  const displayAddress = formatAddress(settings);
 
   // Replace {business_name} placeholders dynamically with the Business Name set by the admin
   const headline = (about.headline || 'About {business_name}').replace(/{business_name}/gi, businessName);
@@ -114,10 +116,12 @@ export default async function AboutPage() {
                 </a>
               </div>
             )}
-            <div className="rounded-2xl border border-brand-ink/8 bg-brand-bg p-8 transition-shadow hover:shadow-card">
-              <h3 className="font-serif text-lg font-semibold text-brand-primary">Visit</h3>
-              <p className="mt-2 text-brand-muted">{settings.address}</p>
-            </div>
+            {displayAddress && (
+              <div className="rounded-2xl border border-brand-ink/8 bg-brand-bg p-8 transition-shadow hover:shadow-card">
+                <h3 className="font-serif text-lg font-semibold text-brand-primary">Visit Us</h3>
+                <p className="mt-2 text-brand-muted">{displayAddress}</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

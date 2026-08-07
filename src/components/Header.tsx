@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { SiteSettings } from '@/lib/types';
+import { formatBusinessName } from '@/lib/format';
 
 const NAV = [
   { label: 'Home', href: '/' },
@@ -16,6 +17,7 @@ export default function Header({ settings }: { settings: SiteSettings }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { first: firstPart, second: secondPart } = formatBusinessName(settings.business_name);
 
   useEffect(() => {
     // rAF-throttle the scroll handler so it never blocks the main thread (INP).
@@ -63,8 +65,8 @@ export default function Header({ settings }: { settings: SiteSettings }) {
                 solid ? 'text-brand-primary' : 'text-white'
               }`}
             >
-              First Choice
-              <span className={solid ? 'text-brand-gold' : 'text-brand-gold'}> Roofing</span>
+              {firstPart}
+              {secondPart && <span className="text-brand-gold"> {secondPart}</span>}
             </span>
           )}
         </Link>
