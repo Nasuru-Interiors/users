@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'First Choice Roofing Services',
+    name: 'First Choice Roofing Enterprise',
     short_name: 'First Choice',
     description:
       "Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",

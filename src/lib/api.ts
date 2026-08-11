@@ -26,7 +26,7 @@ async function get<T>(path: string, fallback: T, revalidate = REVALIDATE): Promi
 }
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  business_name: 'First Choice Roofing Services',
+  business_name: 'First Choice Roofing Enterprise',
   tagline: "Nigeria's #1 Aluminium Roofing Sheet Supplier",
   logo_url: null,
   primary_color: '#7B1E2B',
@@ -35,7 +35,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   phone: '',
   whatsapp: '',
   whatsapp_greeting:
-    'Welcome to First Choice Roofing Services. How can we help you with your aluminium roofing today?',
+    'Welcome to First Choice Roofing Enterprise. How can we help you with your aluminium roofing today?',
   email: '',
   address: 'Lagos, Nigeria',
   city: 'Lagos',
@@ -49,9 +49,9 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   linkedin_url: '',
   tiktok_url: '',
   default_meta_title:
-    'First Choice Roofing Services — Aluminium Roofing Sheets in Lagos, Nigeria',
+    'First Choice Roofing Enterprise — Aluminium Roofing Sheets in Lagos, Nigeria',
   default_meta_description:
-    "First Choice Roofing Services is Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",
+    "First Choice Roofing Enterprise is Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",
   copyright_text: '',
 };
 
