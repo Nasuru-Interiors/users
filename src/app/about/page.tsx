@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: `Discover ${businessName}, your interior deco supply partner for curtains, wallpapers, wall panels, flooring, lighting and decor accessories.`,
     alternates: { canonical: '/about' },
     openGraph: {
-      title: `About ${businessName} — Interior Deco Supply`,
+      title: `About ${businessName}: Interior Deco Supply`,
       description: `Learn about ${businessName}'s commitment to quality interior finishes, fair pricing and reliable supply for homes and commercial spaces.`,
       url: '/about',
     },

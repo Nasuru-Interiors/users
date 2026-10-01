@@ -1,4 +1,4 @@
-// Interior decor FAQs — used for both the on-page accordion and FAQPage structured data.
+// Interior decor FAQs, used for both the on-page accordion and FAQPage structured data.
 export const FAQS: { q: string; a: string }[] = [
   {
     q: 'What interior deco products does Nasuru Interios supply?',

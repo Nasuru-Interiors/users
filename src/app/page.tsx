@@ -35,7 +35,7 @@ const CATEGORIES = [
 ];
 
 const STEPS = [
-  { icon: PhoneCall, title: 'Get a Free Quote', text: "Tell us your room size and style — we'll price it, no obligation." },
+  { icon: PhoneCall, title: 'Get a Free Quote', text: "Tell us your room size and style, we'll price it, no obligation." },
   { icon: LayoutGrid, title: 'Choose Your Style', text: 'Pick from curtains, wallpapers, panels, flooring and decor in your colours.' },
   { icon: Truck, title: 'Fast Delivery', text: 'Delivered to your home or project site.' },
   { icon: Sparkles, title: 'Expert Advice', text: 'Our team helps you match colours, textures and quantities.' },
@@ -181,7 +181,7 @@ export default async function HomePage() {
             {settings.business_name} supplies quality curtains, wallpapers, wall panels, flooring,
             lighting and decor accessories for homes, offices, hotels and showrooms. From a single
             room refresh to a full fit-out, we deliver beautiful, durable interior finishes at
-            competitive prices — backed by expert advice and reliable service.
+            competitive prices, backed by expert advice and reliable service.
           </p>
           <div className="mx-auto mt-8 h-px w-24 bg-brand-gold" />
         </Reveal>
