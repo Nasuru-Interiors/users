@@ -25,6 +25,15 @@ const FEATURES = [
   { icon: Award, title: 'Trusted by Designers', text: 'The go-to deco supplier for homeowners, interior designers and contractors.' },
 ];
 
+const CATEGORIES = [
+  { title: 'Wall Panels', text: 'WPC, PVC and fluted panels for feature walls, TV backdrops and lobbies.' },
+  { title: 'Acoustic Panels', text: 'Sound-softening panels that reduce echo in offices, studios and homes.' },
+  { title: 'Flooring', text: 'SPC, WPC and vinyl flooring in wood, stone and concrete looks.' },
+  { title: 'Outdoor Decor', text: 'Decking, fence panels and cladding built for patios, balconies and gardens.' },
+  { title: 'Stone & Tiles', text: 'Lightweight flexible stone and ceramic-look cladding for walls and columns.' },
+  { title: 'Curtains & Wallpaper', text: 'Curtains, blinds, upholstery fabrics and wallpapers to finish the room.' },
+];
+
 const STEPS = [
   { icon: PhoneCall, title: 'Get a Free Quote', text: "Tell us your room size and style — we'll price it, no obligation." },
   { icon: LayoutGrid, title: 'Choose Your Style', text: 'Pick from curtains, wallpapers, panels, flooring and decor in your colours.' },
@@ -83,6 +92,28 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Product categories */}
+      <section className="bg-brand-bg py-20">
+        <div className="mx-auto max-w-content px-5">
+          <Reveal className="mb-12 text-center">
+            <span className="eyebrow justify-center">What We Supply</span>
+            <h2 className="mt-3 font-serif text-3xl font-semibold text-brand-ink sm:text-4xl">
+              Everything for a Finished Interior
+            </h2>
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {CATEGORIES.map((c, i) => (
+              <Reveal key={c.title} delay={(i % 3) * 90}>
+                <div className="h-full border border-brand-ink/8 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+                  <h3 className="font-serif text-xl font-semibold text-brand-ink">{c.title}</h3>
+                  <p className="mt-2.5 text-sm leading-relaxed text-brand-muted">{c.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Value props */}
       <section className="bg-white py-20">
