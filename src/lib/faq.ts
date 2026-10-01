@@ -2,7 +2,7 @@
 export const FAQS: { q: string; a: string }[] = [
   {
     q: 'What interior deco products does Nasuru Interios supply?',
-    a: 'We supply curtains and blinds, upholstery fabrics, wallpapers, PVC and WPC wall panels, flooring and rugs, ceiling accessories, lighting and decor accessories for homes, offices, hotels and showrooms.',
+    a: 'We supply curtains and blinds, upholstery fabrics, wallpapers, WPC, PVC, fluted and acoustic wall panels, SPC and vinyl flooring, flexible stone and ceramic cladding, outdoor decking and fence panels, lighting and decor accessories for homes, offices, hotels and showrooms.',
   },
   {
     q: 'How much do wallpapers and wall panels cost?',
@@ -15,6 +15,14 @@ export const FAQS: { q: string; a: string }[] = [
   {
     q: 'Can you help me choose colours, patterns and materials?',
     a: 'Absolutely. Tell us about your space, lighting and budget and our team will recommend colours, textures and quantities that suit your style.',
+  },
+  {
+    q: 'What is the difference between WPC and SPC?',
+    a: 'WPC (wood plastic composite) is used for wall panels and decking and gives a warm, wood-like look. SPC (stone plastic composite) has a dense mineral core and is mainly used for hard-wearing flooring. We will recommend the right one for your room.',
+  },
+  {
+    q: 'Can I get a sample before I order?',
+    a: 'Yes. Ask us for samples of panels, flooring or tiles so you can check colour and texture in your own lighting before you buy.',
   },
   {
     q: 'Do you deliver?',
