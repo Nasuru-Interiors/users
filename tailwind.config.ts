@@ -18,7 +18,7 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          // Burgundy + gold luxury identity. Channel-based CSS vars so Tailwind
+          // Jean blue + gold luxury identity. Channel-based CSS vars so Tailwind
           // opacity modifiers (e.g. bg-brand-primary/10) work. Primary/secondary
           // are admin-overridable at runtime; the rest are fixed design tokens.
           DEFAULT: 'rgb(var(--brand-primary) / <alpha-value>)',
@@ -28,7 +28,7 @@ const config: Config = {
           bg: 'rgb(var(--brand-bg) / <alpha-value>)',
           ink: 'rgb(var(--brand-ink) / <alpha-value>)',
           secondary: 'rgb(var(--brand-secondary) / <alpha-value>)',
-          muted: '#6B5A5E',
+          muted: '#5A6878',
         },
       },
       fontFamily: {
@@ -39,8 +39,8 @@ const config: Config = {
         content: '1180px',
       },
       boxShadow: {
-        soft: '0 10px 30px -12px rgba(42, 20, 24, 0.18)',
-        card: '0 18px 40px -20px rgba(42, 20, 24, 0.25)',
+        soft: '0 10px 30px -12px rgba(20, 33, 47, 0.18)',
+        card: '0 18px 40px -20px rgba(20, 33, 47, 0.25)',
         gold: '0 10px 30px -10px rgba(201, 162, 39, 0.45)',
       },
       letterSpacing: {

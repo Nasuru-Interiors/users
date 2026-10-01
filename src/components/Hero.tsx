@@ -5,12 +5,12 @@ import type { HeroSettings, SiteSettings } from '@/lib/types';
 
 /**
  * Admin-designed hero. With background_type "image" + an image it renders the
- * Cloudinary image under a burgundy gradient; otherwise it falls back to a rich
+ * Cloudinary image under a blue gradient; otherwise it falls back to a rich
  * solid-color background (admin-set background_color / default_hero_color).
  */
 export default function Hero({ hero, settings }: { hero: HeroSettings; settings: SiteSettings }) {
   const useImage = hero.background_type === 'image' && !!hero.image_url;
-  const fallbackColor = hero.background_color || settings.default_hero_color || '#7B1E2B';
+  const fallbackColor = hero.background_color || settings.default_hero_color || '#2F5D8C';
 
   return (
     <section
@@ -27,11 +27,11 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
             sizes="100vw"
             className="animate-kenburns object-cover"
           />
-          {/* Burgundy gradient for legibility + brand warmth */}
+          {/* blue gradient for legibility + brand warmth */}
           <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(105deg, rgba(74,14,26,${0.55 + hero.overlay_opacity * 0.4}) 0%, rgba(74,14,26,${hero.overlay_opacity * 0.6}) 55%, rgba(42,20,24,0.35) 100%)`,
+              background: `linear-gradient(105deg, rgba(27,58,92,${0.55 + hero.overlay_opacity * 0.4}) 0%, rgba(27,58,92,${hero.overlay_opacity * 0.6}) 55%, rgba(20,33,47,0.35) 100%)`,
             }}
           />
         </>
@@ -41,7 +41,7 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(120% 120% at 80% 10%, rgba(201,162,39,0.18) 0%, rgba(201,162,39,0) 45%), linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(42,20,24,0.35) 100%)',
+              'radial-gradient(120% 120% at 80% 10%, rgba(201,162,39,0.18) 0%, rgba(201,162,39,0) 45%), linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(20,33,47,0.35) 100%)',
           }}
         />
       )}
@@ -49,7 +49,7 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
       <div className="relative z-10 mx-auto w-full max-w-content px-5">
         <div className="max-w-2xl animate-fade-up">
           <span className="eyebrow mb-5" style={{ color: '#E9C75A' }}>
-            Lagos · Nigeria
+            Interior Deco Supply
           </span>
           <h1
             className="font-serif text-4xl font-semibold leading-[1.08] sm:text-5xl md:text-6xl"

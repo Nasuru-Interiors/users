@@ -17,12 +17,12 @@ const serif = Fraunces({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#7B1E2B',
+  themeColor: '#2F5D8C',
   width: 'device-width',
   initialScale: 1,
 };
 import { getSiteSettings } from '@/lib/api';
-import { SITE_URL, localBusinessJsonLd, organizationJsonLd } from '@/lib/seo';
+import { SITE_URL, localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
@@ -32,7 +32,7 @@ import FloatingActions from '@/components/FloatingActions';
 // a wide logo isn't squished). Falls back to the default icon when no logo is set.
 function faviconFrom(url: string | null): string | undefined {
   if (!url || !url.includes('/upload/')) return undefined;
-  return url.replace('/upload/', '/upload/w_64,h_64,c_pad,b_rgb:fbf6f4,f_png/');
+  return url.replace('/upload/', '/upload/w_64,h_64,c_pad,b_rgb:f3f6fa,f_png/');
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,12 +47,14 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: s.default_meta_description,
     keywords: [
-      'aluminium roofing sheets',
-      'roofing sheets Lagos',
-      'roofing sheets Nigeria',
-      'aluminium roofing Nigeria',
-      'long span aluminium',
-      'stone coated roofing',
+      'interior deco supply',
+      'interior decor store',
+      'curtains and blinds',
+      'wallpapers',
+      'wall panels',
+      'flooring',
+      'home decor accessories',
+      'interior design supplies',
       s.business_name,
     ],
     applicationName: s.business_name,
@@ -87,7 +89,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     if (!/^[0-9a-fA-F]{6}$/.test(full)) return fallback;
     return `${parseInt(full.slice(0, 2), 16)} ${parseInt(full.slice(2, 4), 16)} ${parseInt(full.slice(4, 6), 16)}`;
   };
-  const themeVars = `:root{--brand-primary:${channels(settings.primary_color, '123 30 43')};--brand-secondary:${channels(settings.secondary_color, '255 255 255')};}`;
+  const themeVars = `:root{--brand-primary:${channels(settings.primary_color, '47 93 140')};--brand-secondary:${channels(settings.secondary_color, '255 255 255')};}`;
 
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
@@ -100,6 +102,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <JsonLd data={localBusinessJsonLd(settings)} />
         <JsonLd data={organizationJsonLd(settings)} />
+        <JsonLd data={websiteJsonLd(settings)} />
         <Header settings={settings} />
         <main>{children}</main>
         <Footer settings={settings} />

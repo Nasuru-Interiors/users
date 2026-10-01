@@ -1,23 +1,23 @@
-// Roofing FAQs — used for both the on-page accordion and FAQPage structured data.
+// Interior decor FAQs — used for both the on-page accordion and FAQPage structured data.
 export const FAQS: { q: string; a: string }[] = [
   {
-    q: 'How much do aluminium roofing sheets cost in Lagos, Nigeria?',
-    a: 'Prices depend on the gauge (thickness), profile and quantity. We supply at competitive market rates and give a free, no-obligation quote — contact us with your roof size for an accurate price.',
+    q: 'What interior deco products does Nasuru Interios supply?',
+    a: 'We supply curtains and blinds, upholstery fabrics, wallpapers, PVC and WPC wall panels, flooring and rugs, ceiling accessories, lighting and decor accessories for homes, offices, hotels and showrooms.',
   },
   {
-    q: 'What aluminium roofing profiles do you offer?',
-    a: 'We supply long-span (klip-lok), step-tile, and stone-coated aluminium roofing sheets in a range of colours and thicknesses to suit homes, offices and industrial buildings.',
+    q: 'How much do wallpapers and wall panels cost?',
+    a: 'Prices depend on the design, material and quantity. Share your room size and style preference and we will give you a free, no-obligation quote.',
   },
   {
-    q: 'Do you deliver and install across Nigeria?',
-    a: 'Yes. We are based in Lagos and deliver nationwide, with expert installation teams available for projects across the country.',
+    q: 'Do you offer bulk and trade pricing for designers and contractors?',
+    a: 'Yes. Interior designers, contractors and property developers get trade pricing on bulk and project orders. Contact us with your requirements for a tailored quote.',
   },
   {
-    q: 'How long do aluminium roofing sheets last?',
-    a: 'Quality aluminium roofing is rust-proof and can last 30–50 years with minimal maintenance, making it one of the most durable and cost-effective roofing options for the Nigerian climate.',
+    q: 'Can you help me choose colours, patterns and materials?',
+    a: 'Absolutely. Tell us about your space, lighting and budget and our team will recommend colours, textures and quantities that suit your style.',
   },
   {
-    q: 'Why choose aluminium over other roofing materials?',
-    a: 'Aluminium is lightweight, corrosion-resistant, reflects heat to keep buildings cooler, and withstands heavy rain and harsh sun — ideal for Nigerian weather, with a long lifespan and great value.',
+    q: 'Do you deliver?',
+    a: 'Yes, we arrange delivery of your order. Contact us with your location and we will confirm delivery options and timelines.',
   },
 ];

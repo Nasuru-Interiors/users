@@ -4,7 +4,7 @@ import { formatAddress, formatBusinessName } from '@/lib/format';
 
 export default function Footer({ settings }: { settings?: Partial<SiteSettings> | null }) {
   const s = settings || {};
-  const businessName = (s.business_name || 'First Choice Roofing Services').trim();
+  const businessName = (s.business_name || 'Nasuru Interios').trim();
   const { first: firstPart, second: secondPart } = formatBusinessName(businessName);
   const displayAddress = formatAddress(s);
 
@@ -22,7 +22,7 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
   const rawCopyright =
     s.copyright_text && s.copyright_text.trim()
       ? s.copyright_text
-      : `© {year} {business_name}. Premium aluminium roofing sheets in Lagos, Nigeria.`;
+      : `© {year} {business_name}. Interior decor supplies for beautiful homes and spaces.`;
 
   const copyrightText = rawCopyright
     .replace(/{business_name}/gi, businessName)

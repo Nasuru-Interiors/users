@@ -37,7 +37,7 @@ export default function Carousel({ images }: { images: CarouselImage[] }) {
             Craftsmanship You Can Trust
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-brand-muted">
-            Premium aluminium roofing sheets, supplied and installed across Lagos and Nigeria.
+            Curtains, wallpapers, wall panels, flooring and decor — supplied for homes and commercial interiors.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function Carousel({ images }: { images: CarouselImage[] }) {
               <div key={img.id} className="relative h-[360px] min-w-full sm:h-[480px]">
                 <Image
                   src={img.image_url}
-                  alt={img.alt || 'First Choice Roofing aluminium roofing sheets'}
+                  alt={img.alt || 'Nasuru Interios interior decor supplies'}
                   fill
                   sizes="100vw"
                   className="object-cover"

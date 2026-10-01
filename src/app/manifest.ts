@@ -2,14 +2,14 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'First Choice Roofing Enterprise',
-    short_name: 'First Choice',
+    name: 'Nasuru Interios',
+    short_name: 'Nasuru',
     description:
-      "Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",
+      'Interior deco supply: curtains, wallpapers, wall panels, flooring, lighting and decor accessories.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#FBF6F4',
-    theme_color: '#7B1E2B',
+    background_color: '#f3f6fa',
+    theme_color: '#2F5D8C',
     icons: [],
   };
 }
