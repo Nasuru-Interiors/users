@@ -34,7 +34,7 @@ export function formatAddress(s?: Partial<SiteSettings> | null): string {
  * Splits a business name into two styled parts for elegant typography headings.
  */
 export function formatBusinessName(name?: string | null): { first: string; second: string } {
-  const clean = (name || 'Nasuru Interios').trim();
+  const clean = (name || 'Nasuru Interiors').trim();
   const words = clean.split(/\s+/);
   if (words.length <= 1) return { first: clean, second: '' };
   const splitIndex = words.length > 2 ? 2 : 1;

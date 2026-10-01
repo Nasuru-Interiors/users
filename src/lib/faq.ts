@@ -1,7 +1,7 @@
 // Interior decor FAQs, used for both the on-page accordion and FAQPage structured data.
 export const FAQS: { q: string; a: string }[] = [
   {
-    q: 'What interior deco products does Nasuru Interios supply?',
+    q: 'What interior deco products does Nasuru Interiors supply?',
     a: 'We supply curtains and blinds, upholstery fabrics, wallpapers, WPC, PVC, fluted and acoustic wall panels, SPC and vinyl flooring, flexible stone and ceramic cladding, outdoor decking and fence panels, lighting and decor accessories for homes, offices, hotels and showrooms.',
   },
   {

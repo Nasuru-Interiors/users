@@ -1,7 +1,7 @@
 import type { Article, SiteSettings } from './types';
 
 const DEFAULT_SITE_URL =
-  process.env.NODE_ENV === 'production' ? 'https://interios.nasuru.com' : 'http://localhost:3000';
+  process.env.NODE_ENV === 'production' ? 'https://interiors.nasuru.com' : 'http://localhost:3000';
 
 /** Canonical origin (no trailing slash) used for canonicals, sitemap and structured data. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, '');

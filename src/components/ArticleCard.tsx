@@ -27,7 +27,7 @@ export default function ArticleCard({ article }: { article: ArticleSummary }) {
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-brand-primary/8">
               <span className="font-serif text-sm font-semibold text-brand-primary">
-                Nasuru Interios
+                Nasuru Interiors
               </span>
             </div>
           )}

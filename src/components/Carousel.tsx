@@ -50,7 +50,7 @@ export default function Carousel({ images }: { images: CarouselImage[] }) {
               <div key={img.id} className="relative h-[360px] min-w-full sm:h-[480px]">
                 <Image
                   src={img.image_url}
-                  alt={img.alt || 'Nasuru Interios interior decor supplies'}
+                  alt={img.alt || 'Nasuru Interiors interior decor supplies'}
                   fill
                   sizes="100vw"
                   className="object-cover"
