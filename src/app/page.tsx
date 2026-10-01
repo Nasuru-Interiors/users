@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ShieldCheck, Truck, Award, PhoneCall, LayoutGrid, HardHat } from 'lucide-react';
+import { ShieldCheck, Truck, Award, PhoneCall, LayoutGrid, Sparkles } from 'lucide-react';
 import { getArticles, getCarousel, getHero, getSiteSettings } from '@/lib/api';
 import Hero from '@/components/Hero';
 import Carousel from '@/components/Carousel';
@@ -13,23 +13,23 @@ import { FAQS } from '@/lib/faq';
 export const revalidate = 60;
 
 const STATS = [
-  { value: '30+ Yrs', label: 'Roof lifespan' },
-  { value: '100%', label: 'Rust-proof aluminium' },
-  { value: 'Nationwide', label: 'Delivery & install' },
-  { value: 'Free', label: 'On-site quotes' },
+  { value: '5+', label: 'Product categories' },
+  { value: '100%', label: 'Quality checked' },
+  { value: 'Trade', label: 'Pricing for pros' },
+  { value: 'Free', label: 'Quotes' },
 ];
 
 const FEATURES = [
-  { icon: ShieldCheck, title: 'Premium Aluminium', text: 'Long-span, weather-proof sheets engineered for the Nigerian climate.' },
-  { icon: Truck, title: 'Supply & Installation', text: 'Nationwide delivery and expert installation across Lagos and beyond.' },
-  { icon: Award, title: 'Trusted in Lagos', text: 'The first choice for homeowners, contractors and developers nationwide.' },
+  { icon: ShieldCheck, title: 'Quality Materials', text: 'Curtains, wallpapers, wall panels and flooring selected for finish and durability.' },
+  { icon: Truck, title: 'Supply & Delivery', text: 'Reliable supply for single rooms and full project fit-outs.' },
+  { icon: Award, title: 'Trusted by Designers', text: 'The go-to deco supplier for homeowners, interior designers and contractors.' },
 ];
 
 const STEPS = [
-  { icon: PhoneCall, title: 'Get a Free Quote', text: "Tell us your roof size and we'll price it — no obligation." },
-  { icon: LayoutGrid, title: 'Choose Your Profile', text: 'Long-span, step-tile or stone-coated, in your colour.' },
-  { icon: Truck, title: 'Fast Delivery', text: 'Delivered to your site anywhere in Nigeria.' },
-  { icon: HardHat, title: 'Expert Installation', text: 'Fitted by our experienced roofing team.' },
+  { icon: PhoneCall, title: 'Get a Free Quote', text: "Tell us your room size and style — we'll price it, no obligation." },
+  { icon: LayoutGrid, title: 'Choose Your Style', text: 'Pick from curtains, wallpapers, panels, flooring and decor in your colours.' },
+  { icon: Truck, title: 'Fast Delivery', text: 'Delivered to your home or project site.' },
+  { icon: Sparkles, title: 'Expert Advice', text: 'Our team helps you match colours, textures and quantities.' },
 ];
 
 export default async function HomePage() {
@@ -67,7 +67,7 @@ export default async function HomePage() {
                 <h2 className="mt-3 font-serif text-3xl font-semibold text-brand-ink sm:text-4xl">
                   Latest Articles
                 </h2>
-                <p className="mt-2 text-brand-muted">The 6 newest roofing tips, guides and product insights.</p>
+                <p className="mt-2 text-brand-muted">The 6 newest decor ideas, buying guides and styling tips.</p>
               </div>
               <Link href="/articles" className="btn-ghost">
                 View all articles
@@ -114,7 +114,7 @@ export default async function HomePage() {
           <Reveal className="mb-12 text-center">
             <span className="eyebrow justify-center">How It Works</span>
             <h2 className="mt-3 font-serif text-3xl font-semibold text-brand-ink sm:text-4xl">
-              From quote to finished roof
+              From quote to finished room
             </h2>
           </Reveal>
           <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
@@ -142,14 +142,14 @@ export default async function HomePage() {
       {/* SEO intro copy */}
       <section className="bg-brand-bg py-24">
         <Reveal className="mx-auto max-w-3xl px-5 text-center">
-          <span className="eyebrow justify-center">Why First Choice</span>
+          <span className="eyebrow justify-center">Why Nasuru Interios</span>
           <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-brand-ink sm:text-4xl">
-            Nigeria&apos;s Leading Aluminium Roofing Sheet Supplier
+            Your Interior Deco Supply Partner
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-brand-muted">
-            Based in Lagos, {settings.business_name} supplies and installs premium aluminium roofing
-            sheets for homes, offices and industrial buildings across Nigeria. From long-span and
-            step-tile to stone-coated profiles, we deliver durable, rust-resistant roofing at
+            {settings.business_name} supplies quality curtains, wallpapers, wall panels, flooring,
+            lighting and decor accessories for homes, offices, hotels and showrooms. From a single
+            room refresh to a full fit-out, we deliver beautiful, durable interior finishes at
             competitive prices — backed by expert advice and reliable service.
           </p>
           <div className="mx-auto mt-8 h-px w-24 bg-brand-gold" />
@@ -179,8 +179,8 @@ export default async function HomePage() {
         />
         <Reveal className="relative mx-auto max-w-2xl px-5">
           <span className="eyebrow justify-center">Get Started</span>
-          <h2 className="mt-4 font-serif text-3xl font-semibold sm:text-4xl">Ready to roof with the best?</h2>
-          <p className="mt-3 text-white/80">Get a free quote on premium aluminium roofing sheets today.</p>
+          <h2 className="mt-4 font-serif text-3xl font-semibold sm:text-4xl">Ready to transform your space?</h2>
+          <p className="mt-3 text-white/80">Get a free quote on premium interior decor supplies today.</p>
           <Link href="/about" className="btn-gold mt-8 px-9 py-3.5">
             Contact Us
           </Link>

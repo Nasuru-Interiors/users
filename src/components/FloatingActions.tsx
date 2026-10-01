@@ -30,7 +30,7 @@ export default function FloatingActions({
   const digits = (whatsapp || '').replace(/\D/g, '');
   const greetingText =
     greeting?.trim() ||
-    `Welcome to ${businessName}. How can we help you with your roofing today?`;
+    `Welcome to ${businessName}. How can we help with your interior decor today?`;
   const showBadge = !open && !dismissed;
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function FloatingActions({
   function startChat() {
     const text =
       message.trim() ||
-      `Hello ${businessName}, I'd like a quote on aluminium roofing sheets.`;
+      `Hello ${businessName}, I'd like a quote on interior decor supplies.`;
     window.open(`https://wa.me/${digits}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   }
 

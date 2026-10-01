@@ -1,42 +1,63 @@
 import type { Article, SiteSettings } from './types';
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const DEFAULT_SITE_URL =
+  process.env.NODE_ENV === 'production' ? 'https://interios.nasuru.com' : 'http://localhost:3000';
 
-/** LocalBusiness / RoofingContractor schema — the core of local SEO for Lagos. */
+/** Canonical origin (no trailing slash) used for canonicals, sitemap and structured data. */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, '');
+
+/** HomeGoodsStore / LocalBusiness schema — the core of local SEO for an interior deco supplier. */
 export function localBusinessJsonLd(s: SiteSettings) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'RoofingContractor',
+    '@type': 'HomeGoodsStore',
     name: s.business_name,
     description: s.default_meta_description,
     url: SITE_URL,
     ...(s.logo_url ? { logo: s.logo_url, image: s.logo_url } : {}),
     ...(s.phone ? { telephone: s.phone } : {}),
     ...(s.email ? { email: s.email } : {}),
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: s.address,
-      addressLocality: s.city || 'Lagos',
-      addressRegion: s.state || 'Lagos',
-      addressCountry: s.country || 'Nigeria',
-    },
+    ...(s.address || s.city || s.state
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            ...(s.address ? { streetAddress: s.address } : {}),
+            ...(s.city ? { addressLocality: s.city } : {}),
+            ...(s.state ? { addressRegion: s.state } : {}),
+            addressCountry: s.country || 'Nigeria',
+          },
+        }
+      : {}),
     ...(s.lat && s.lng
       ? { geo: { '@type': 'GeoCoordinates', latitude: s.lat, longitude: s.lng } }
       : {}),
     areaServed: [
-      { '@type': 'City', name: 'Lagos' },
-      { '@type': 'Country', name: 'Nigeria' },
+      ...(s.city ? [{ '@type': 'City', name: s.city }] : []),
+      { '@type': 'Country', name: s.country || 'Nigeria' },
     ],
     knowsAbout: [
-      'Aluminium roofing sheets',
-      'Roofing supply',
-      'Roof installation',
-      'Stone coated roofing',
-      'Long span aluminium',
+      'Interior decor',
+      'Curtains and blinds',
+      'Wallpapers',
+      'Wall panels',
+      'Flooring',
+      'Lighting',
+      'Upholstery fabrics',
     ],
     sameAs: [s.facebook_url, s.instagram_url, s.twitter_url, s.linkedin_url, s.tiktok_url].filter(
       Boolean,
     ),
+  };
+}
+
+/** WebSite schema — helps Google show the correct site name in results. */
+export function websiteJsonLd(s: SiteSettings) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: s.business_name,
+    url: SITE_URL,
+    inLanguage: 'en',
   };
 }
 

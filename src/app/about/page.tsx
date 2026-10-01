@@ -9,15 +9,15 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSiteSettings();
-  const businessName = s.business_name || 'First Choice Roofing Services';
+  const businessName = s.business_name || 'Nasuru Interios';
 
   return {
     title: `About Us | ${businessName}`,
-    description: `Discover how ${businessName} delivers certified gauge aluminium roofing sheets, step tiles, stone-coated tiles, and expert roof installation in Lagos and across Nigeria.`,
+    description: `Discover ${businessName}, your interior deco supply partner for curtains, wallpapers, wall panels, flooring, lighting and decor accessories.`,
     alternates: { canonical: '/about' },
     openGraph: {
-      title: `About ${businessName} — Aluminium Roofing Sheet Supplier in Lagos, Nigeria`,
-      description: `Learn about ${businessName}'s commitment to quality aluminium roofing sheets, factory-direct pricing, and professional installation.`,
+      title: `About ${businessName} — Interior Deco Supply`,
+      description: `Learn about ${businessName}'s commitment to quality interior finishes, fair pricing and reliable supply for homes and commercial spaces.`,
       url: '/about',
     },
   };
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()]);
-  const businessName = settings.business_name || 'First Choice Roofing Services';
+  const businessName = settings.business_name || 'Nasuru Interios';
   const displayAddress = formatAddress(settings);
 
   // Replace {business_name} placeholders dynamically with the Business Name set by the admin

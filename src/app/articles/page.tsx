@@ -10,12 +10,12 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSiteSettings();
   return {
-    title: 'Roofing Articles & Guides',
-    description: `Expert articles on aluminium roofing sheets, installation tips and product guides from ${s.business_name}, Lagos, Nigeria.`,
+    title: 'Interior Design Articles & Decor Guides',
+    description: `Interior decor ideas, buying guides and styling tips for curtains, wallpapers, wall panels, flooring and lighting from ${s.business_name}.`,
     alternates: { canonical: '/articles' },
     openGraph: {
-      title: `Roofing Articles & Guides | ${s.business_name}`,
-      description: 'Expert articles on aluminium roofing sheets in Nigeria.',
+      title: `Interior Design Articles & Decor Guides | ${s.business_name}`,
+      description: 'Interior decor ideas, buying guides and styling tips.',
       url: '/articles',
     },
   };
@@ -38,7 +38,7 @@ export default async function ArticlesPage({
     <div className="bg-brand-bg">
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', url: '/' }, { name: 'Articles', url: '/articles' }])} />
 
-      {/* Page header (burgundy band; sits under the transparent header) */}
+      {/* Page header (blue band; sits under the transparent header) */}
       <section className="relative overflow-hidden bg-brand-deep pb-20 pt-36 text-center text-white">
         <div
           className="absolute inset-0"
@@ -49,9 +49,9 @@ export default async function ArticlesPage({
         />
         <div className="relative mx-auto max-w-2xl px-5">
           <span className="eyebrow justify-center">Insights & Guides</span>
-          <h1 className="mt-4 font-serif text-4xl font-semibold sm:text-5xl">Roofing Articles & Guides</h1>
+          <h1 className="mt-4 font-serif text-4xl font-semibold sm:text-5xl">Interior Design Articles & Decor Guides</h1>
           <p className="mt-4 text-white/80">
-            Expert insights on aluminium roofing sheets, installation and maintenance in Nigeria.
+            Expert ideas on curtains, wallpapers, wall panels, flooring, lighting and decor styling.
           </p>
         </div>
       </section>
@@ -88,7 +88,7 @@ export default async function ArticlesPage({
         {data.items.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-brand-ink/15 bg-white py-24 text-center">
             <p className="font-serif text-xl font-semibold text-brand-ink">No articles published yet</p>
-            <p className="mt-2 text-sm text-brand-muted">Check back soon for roofing tips and guides.</p>
+            <p className="mt-2 text-sm text-brand-muted">Check back soon for decor tips and guides.</p>
           </div>
         ) : (
           <>

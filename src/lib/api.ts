@@ -26,20 +26,20 @@ async function get<T>(path: string, fallback: T, revalidate = REVALIDATE): Promi
 }
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  business_name: 'First Choice Roofing Enterprise',
-  tagline: "Nigeria's #1 Aluminium Roofing Sheet Supplier",
+  business_name: 'Nasuru Interios',
+  tagline: 'Interior Deco Supply — Curtains, Wallpapers, Wall Panels & Flooring',
   logo_url: null,
-  primary_color: '#7B1E2B',
+  primary_color: '#2F5D8C',
   secondary_color: '#FFFFFF',
-  default_hero_color: '#7B1E2B',
+  default_hero_color: '#2F5D8C',
   phone: '',
   whatsapp: '',
   whatsapp_greeting:
-    'Welcome to First Choice Roofing Enterprise. How can we help you with your aluminium roofing today?',
+    'Welcome to Nasuru Interios. How can we help with your interior decor today?',
   email: '',
-  address: 'Lagos, Nigeria',
-  city: 'Lagos',
-  state: 'Lagos',
+  address: '',
+  city: '',
+  state: '',
   country: 'Nigeria',
   lat: null,
   lng: null,
@@ -49,22 +49,22 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   linkedin_url: '',
   tiktok_url: '',
   default_meta_title:
-    'First Choice Roofing Enterprise — Aluminium Roofing Sheets in Lagos, Nigeria',
+    'Nasuru Interios — Interior Deco Supply: Curtains, Wallpapers, Wall Panels & Flooring',
   default_meta_description:
-    "First Choice Roofing Enterprise is Lagos, Nigeria's leading supplier of premium aluminium roofing sheets.",
+    'Nasuru Interios is your interior deco supply store for curtains, wallpapers, wall panels, flooring, lighting and decor accessories. Quality products, fair prices, free quotes.',
   copyright_text: '',
 };
 
 const DEFAULT_HERO: HeroSettings = {
-  heading: 'Premium Aluminium Roofing Sheets in Lagos',
+  heading: 'Beautiful Interiors Start with the Right Supplies',
   subheading:
-    'Durable, weather-proof and affordable roofing solutions — supplied and installed across Nigeria.',
+    'Curtains, wallpapers, wall panels, flooring, lighting and decor — everything you need to style your space.',
   cta_label: 'Get a Free Quote',
   cta_href: '/about',
   secondary_cta_label: 'Read Our Blog',
   secondary_cta_href: '/articles',
   background_type: 'color',
-  background_color: '#7B1E2B',
+  background_color: '#2F5D8C',
   text_color: '#FFFFFF',
   overlay_opacity: 0.45,
   image_url: null,
@@ -81,15 +81,15 @@ export const getAbout = () =>
   get<AboutContent>('/about', {
     headline: 'About {business_name}',
     subheading:
-      "Lagos, Nigeria's Premier Supplier & Installer of Premium Long-Span, Stone-Coated, and Custom Aluminium Roofing Sheets",
+      'Your Interior Deco Supply Partner for Curtains, Wallpapers, Wall Panels, Flooring, Lighting & Decor',
     body_html:
-      '<p>Welcome to <strong>{business_name}</strong>, your premier partner for high-grade aluminium roofing solutions in Lagos and across Nigeria. Built on uncompromised structural integrity and modern architectural aesthetics, <strong>{business_name}</strong> supplies and installs top-quality aluminium roofing sheets engineered for tropical weather resilience.</p><h3>Our Core Products &amp; Capabilities</h3><p>At <strong>{business_name}</strong>, we provide a complete spectrum of roofing sheet designs tailored for residential homes, commercial complexes, and industrial developments:</p><ul><li><strong>Long-Span Aluminium Sheets:</strong> Precision-milled, rust-proof, and lightweight sheets ideal for modern homes and commercial buildings.</li><li><strong>Step-Tiles &amp; Metcoppo Profiles:</strong> Architecturally sophisticated roofing sheets that blend classic tile aesthetics with heavy-duty aluminium durability.</li><li><strong>Stone-Coated Roof Tiles:</strong> Premium stone-chip coated roofing tiles offering superior acoustic insulation and heat resistance.</li><li><strong>Custom Accessories &amp; Flashing:</strong> Matching gutters, ridge caps, fascia boards, and specialized flashing components engineered for zero-leakage protection.</li></ul><h3>Why Work With {business_name}?</h3><p>Selecting the right roof is a vital structural investment. Here is why property developers, site engineers, and homeowners across Lagos rely on <strong>{business_name}</strong>:</p><ul><li><strong>Certified Gauge Integrity:</strong> We guarantee true gauge thickness (0.45mm, 0.55mm, 0.70mm+) without compromises, ensuring maximum wind and corrosion resistance.</li><li><strong>Factory-Direct Rates:</strong> Direct partnerships with top aluminium coil manufacturers allow <strong>{business_name}</strong> to offer factory-direct pricing with no middleman markup.</li><li><strong>Turnkey Professional Installation:</strong> Certified roofing installers ensure precise structural alignment, watertight sealing, and long-lasting durability.</li><li><strong>Nationwide Logistics:</strong> Headquartered in Lagos, <strong>{business_name}</strong> delivers materials directly to project sites throughout Nigeria.</li></ul><h3>Our Quality Commitment</h3><p>Whether you are building your personal residence, renovating a commercial property, or managing a large housing development, <strong>{business_name}</strong> is committed to delivering roofing solutions that combine strength, beauty, and lasting value.</p>',
+      '<p>Welcome to <strong>{business_name}</strong>, your one-stop interior deco supply store for homeowners, interior designers, contractors and property developers. We source and supply quality finishes and decor that turn ordinary rooms into beautiful, functional spaces.</p><h3>What We Supply</h3><p>From a single room refresh to a full fit-out, <strong>{business_name}</strong> stocks everything you need to bring your interior design vision to life:</p><ul><li><strong>Curtains, Blinds &amp; Upholstery Fabrics:</strong> Sheers, blackout curtains, roller and Roman blinds, plus premium fabrics for sofas, cushions and headboards.</li><li><strong>Wallpapers &amp; Wall Panels:</strong> 3D wallpapers, textured and patterned designs, PVC and WPC wall panels, and decorative wall art for feature walls.</li><li><strong>Flooring &amp; Rugs:</strong> Vinyl and laminate flooring, carpets, rugs and floor finishes that balance style with durability.</li><li><strong>Ceilings &amp; Lighting:</strong> PVC and POP ceiling accessories, chandeliers, pendant lights, wall lights and LED strip lighting.</li><li><strong>Decor Accessories:</strong> Mirrors, vases, cushions, throws, artificial plants and finishing touches that complete a room.</li></ul><h3>Why Choose {business_name}?</h3><p>Great interiors start with the right materials. Here is why homeowners, designers and developers rely on <strong>{business_name}</strong>:</p><ul><li><strong>Curated Quality:</strong> Every product is selected for finish, durability and lasting good looks.</li><li><strong>Wide Range of Styles:</strong> Modern, classic, minimalist or luxury &mdash; we stock designs for every taste and budget.</li><li><strong>Fair, Transparent Pricing:</strong> Competitive rates with honest quotes and trade pricing for bulk and project orders.</li><li><strong>Helpful Advice:</strong> Not sure what suits your space? Our team helps you choose colours, textures and quantities.</li></ul><h3>Our Commitment</h3><p>Whether you are furnishing a new home, refreshing an apartment, or outfitting an office, hotel or showroom, <strong>{business_name}</strong> is committed to supplying interior products that combine beauty, quality and value.</p>',
     image_url: null,
     stats: [
-      { label: 'Industry Experience', value: '15+ Years' },
-      { label: 'Projects Delivered', value: '2,500+' },
-      { label: 'Leak-Free Guarantee', value: '100%' },
-      { label: 'States Covered', value: '36' },
+      { label: 'Product Categories', value: '5+' },
+      { label: 'Happy Clients', value: '1,000+' },
+      { label: 'Quality Checked', value: '100%' },
+      { label: 'Free Quotes', value: 'Always' },
     ],
     team: [],
   });
