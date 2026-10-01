@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Nasuru Interios',
+    name: 'Nasuru Interiors',
     short_name: 'Nasuru',
     description:
       'Interior deco supply: curtains, wallpapers, wall panels, flooring, lighting and decor accessories.',

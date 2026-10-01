@@ -4,7 +4,7 @@ import { formatAddress, formatBusinessName } from '@/lib/format';
 
 export default function Footer({ settings }: { settings?: Partial<SiteSettings> | null }) {
   const s = settings || {};
-  const businessName = (s.business_name || 'Nasuru Interios').trim();
+  const businessName = (s.business_name || 'Nasuru Interiors').trim();
   const { first: firstPart, second: secondPart } = formatBusinessName(businessName);
   const displayAddress = formatAddress(s);
 

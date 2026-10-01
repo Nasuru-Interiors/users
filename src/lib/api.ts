@@ -26,7 +26,7 @@ async function get<T>(path: string, fallback: T, revalidate = REVALIDATE): Promi
 }
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  business_name: 'Nasuru Interios',
+  business_name: 'Nasuru Interiors',
   tagline: 'Interior Deco Supply: Curtains, Wallpapers, Wall Panels & Flooring',
   logo_url: null,
   primary_color: '#2F5D8C',
@@ -35,7 +35,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   phone: '',
   whatsapp: '',
   whatsapp_greeting:
-    'Welcome to Nasuru Interios. How can we help with your interior decor today?',
+    'Welcome to Nasuru Interiors. How can we help with your interior decor today?',
   email: '',
   address: '',
   city: '',
@@ -49,9 +49,9 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   linkedin_url: '',
   tiktok_url: '',
   default_meta_title:
-    'Nasuru Interios: Interior Deco Supply in Nigeria',
+    'Nasuru Interiors: Interior Deco Supply in Nigeria',
   default_meta_description:
-    'Nasuru Interios supplies curtains, wallpapers, wall panels, flooring, lighting and decor in Nigeria. Quality products, fair prices and free quotes.',
+    'Nasuru Interiors supplies curtains, wallpapers, wall panels, flooring, lighting and decor in Nigeria. Quality products, fair prices and free quotes.',
   copyright_text: '',
 };
 

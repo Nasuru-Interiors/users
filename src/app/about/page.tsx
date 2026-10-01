@@ -9,7 +9,7 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSiteSettings();
-  const businessName = s.business_name || 'Nasuru Interios';
+  const businessName = s.business_name || 'Nasuru Interiors';
 
   return {
     title: `About Us | ${businessName}`,
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()]);
-  const businessName = settings.business_name || 'Nasuru Interios';
+  const businessName = settings.business_name || 'Nasuru Interiors';
   const displayAddress = formatAddress(settings);
 
   // Replace {business_name} placeholders dynamically with the Business Name set by the admin
