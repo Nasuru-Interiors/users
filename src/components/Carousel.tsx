@@ -37,7 +37,7 @@ export default function Carousel({ images }: { images: CarouselImage[] }) {
             Craftsmanship You Can Trust
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-brand-muted">
-            Curtains, wallpapers, wall panels, flooring and decor — supplied for homes and commercial interiors.
+            Curtains, wallpapers, wall panels, flooring and decor, supplied for homes and commercial interiors.
           </p>
         </div>
 

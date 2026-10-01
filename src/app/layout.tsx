@@ -8,7 +8,7 @@ const sans = Inter({
   variable: '--font-sans',
 });
 
-// Elegant variable serif for headings — gives the brand a premium, editorial feel.
+// Elegant variable serif for headings, gives the brand a premium, editorial feel.
 const serif = Fraunces({
   subsets: ['latin'],
   display: 'swap',

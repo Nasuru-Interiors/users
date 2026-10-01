@@ -6,7 +6,7 @@ const DEFAULT_SITE_URL =
 /** Canonical origin (no trailing slash) used for canonicals, sitemap and structured data. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, '');
 
-/** HomeGoodsStore / LocalBusiness schema — the core of local SEO for an interior deco supplier. */
+/** HomeGoodsStore / LocalBusiness schema, the core of local SEO for an interior deco supplier. */
 export function localBusinessJsonLd(s: SiteSettings) {
   return {
     '@context': 'https://schema.org',
@@ -50,7 +50,7 @@ export function localBusinessJsonLd(s: SiteSettings) {
   };
 }
 
-/** WebSite schema — helps Google show the correct site name in results. */
+/** WebSite schema, helps Google show the correct site name in results. */
 export function websiteJsonLd(s: SiteSettings) {
   return {
     '@context': 'https://schema.org',
