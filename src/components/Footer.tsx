@@ -12,8 +12,7 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
   const socials = [
     { label: 'Facebook', url: s.facebook_url },
     { label: 'Instagram', url: s.instagram_url },
-    { label: 'Twitter', url: s.twitter_url },
-    { label: 'LinkedIn', url: s.linkedin_url },
+    { label: 'YouTube', url: s.youtube_url },
     { label: 'TikTok', url: s.tiktok_url },
   ].filter((item): item is { label: string; url: string } => Boolean(item.url && item.url.trim()));
 

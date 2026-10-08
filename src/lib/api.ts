@@ -45,8 +45,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   lng: null,
   facebook_url: '',
   instagram_url: '',
-  twitter_url: '',
-  linkedin_url: '',
+  youtube_url: '',
   tiktok_url: '',
   default_meta_title:
     'Nasuru Interiors: Interior Deco Supply in Nigeria',

@@ -44,7 +44,7 @@ export function localBusinessJsonLd(s: SiteSettings) {
       'Lighting',
       'Upholstery fabrics',
     ],
-    sameAs: [s.facebook_url, s.instagram_url, s.twitter_url, s.linkedin_url, s.tiktok_url].filter(
+    sameAs: [s.facebook_url, s.instagram_url, s.youtube_url, s.tiktok_url].filter(
       Boolean,
     ),
   };
@@ -68,7 +68,7 @@ export function organizationJsonLd(s: SiteSettings) {
     name: s.business_name,
     url: SITE_URL,
     ...(s.logo_url ? { logo: s.logo_url } : {}),
-    sameAs: [s.facebook_url, s.instagram_url, s.twitter_url, s.linkedin_url, s.tiktok_url].filter(
+    sameAs: [s.facebook_url, s.instagram_url, s.youtube_url, s.tiktok_url].filter(
       Boolean,
     ),
   };
