@@ -34,24 +34,24 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
 
       <div className="mx-auto grid max-w-content gap-10 px-5 py-16 md:grid-cols-3">
         <div>
-          <h3 className="font-serif text-2xl font-semibold">
+          <p className="font-serif text-2xl font-semibold">
             {firstPart}
             {secondPart && <span className="text-brand-gold"> {secondPart}</span>}
-          </h3>
+          </p>
           {s.tagline && <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">{s.tagline}</p>}
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Explore</h4>
+          <p className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Explore</p>
+          {/* Anchor text differs from the header nav so each internal link label is unique on the page. */}
           <ul className="space-y-2.5 text-sm text-white/75">
-            <li><Link href="/" className="transition-colors hover:text-white">Home</Link></li>
-            <li><Link href="/articles" className="transition-colors hover:text-white">Articles</Link></li>
-            <li><Link href="/about" className="transition-colors hover:text-white">About Us</Link></li>
+            <li><Link href="/articles" className="transition-colors hover:text-white">Price Guides &amp; Decor Articles</Link></li>
+            <li><Link href="/about" className="transition-colors hover:text-white">About Nasuru Interiors</Link></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Contact</h4>
+          <p className="mb-4 text-xs font-bold uppercase tracking-wider2 text-brand-gold">Contact</p>
           <ul className="space-y-2.5 text-sm text-white/75">
             {displayAddress && <li>{displayAddress}</li>}
             {s.phone && (
