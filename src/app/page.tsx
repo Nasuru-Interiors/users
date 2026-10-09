@@ -41,6 +41,17 @@ const STEPS = [
   { icon: Sparkles, title: 'Expert Advice', text: 'Our team helps you match colours, textures and quantities.' },
 ];
 
+// Keyword anchors for the 2026 price guides. Labels deliberately differ from the article titles
+// shown in the "Latest Articles" cards so no anchor text repeats on the page.
+const PRICE_GUIDES = [
+  { label: 'marble sticker prices', slug: 'price-of-marble-stickers-in-nigeria-lagos-2026' },
+  { label: 'self-adhesive marble sticker rolls', slug: 'price-of-self-adhesive-marble-stickers-in-nigeria-lagos-2026' },
+  { label: 'UV marble sheet prices', slug: 'price-of-marble-sheets-in-nigeria-lagos-2026' },
+  { label: 'acrylic marble board prices', slug: 'price-of-acrylic-marble-board-in-nigeria-lagos-2026' },
+  { label: 'fluted wall panel prices', slug: 'price-of-fluted-wall-panels-in-nigeria-lagos-2026' },
+  { label: 'PU stone panel prices', slug: 'price-of-pu-stone-wall-panels-in-nigeria-lagos-2026' },
+];
+
 export default async function HomePage() {
   const [hero, settings, carousel, latest] = await Promise.all([
     getHero(),
@@ -127,7 +138,7 @@ export default async function HomePage() {
                     <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-primary/10 text-brand-primary transition-colors group-hover:bg-brand-gold group-hover:text-brand-ink">
                       <Icon size={26} />
                     </div>
-                    <h3 className="font-serif text-xl font-semibold text-brand-ink">{f.title}</h3>
+                    <p className="font-serif text-xl font-semibold text-brand-ink">{f.title}</p>
                     <p className="mt-2.5 text-sm leading-relaxed text-brand-muted">{f.text}</p>
                   </div>
                 </Reveal>
@@ -160,7 +171,7 @@ export default async function HomePage() {
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary text-white">
                       <Icon size={22} />
                     </div>
-                    <h3 className="font-serif text-lg font-semibold text-brand-ink">{s.title}</h3>
+                    <p className="font-serif text-lg font-semibold text-brand-ink">{s.title}</p>
                     <p className="mt-2 text-sm leading-relaxed text-brand-muted">{s.text}</p>
                   </div>
                 </Reveal>
@@ -182,6 +193,26 @@ export default async function HomePage() {
             lighting and decor accessories for homes, offices, hotels and showrooms. From a single
             room refresh to a full fit-out, we deliver beautiful, durable interior finishes at
             competitive prices, backed by expert advice and reliable service.
+          </p>
+          <p className="mt-5 text-lg leading-relaxed text-brand-muted">
+            We stock the finishes Lagos homeowners, interior designers and contractors ask for most:
+            PVC and UV marble sheets, acrylic marble boards, marble stickers and self-adhesive marble
+            wallpaper, WPC fluted wall panels, PU stone panels, acoustic panels, SPC and vinyl
+            flooring, curtains, blinds and wallpapers. Visit our {settings.city || 'Mushin'},{' '}
+            {settings.state || 'Lagos'} store to see colours and textures in person, or send us your
+            wall size for a quick quantity count and delivery quote.
+          </p>
+          <p className="mt-5 text-lg leading-relaxed text-brand-muted">
+            Planning a budget? Our 2026 price guides list current Lagos prices and show how much you
+            need for a typical wall:{' '}
+            {PRICE_GUIDES.map((g, i) => (
+              <span key={g.slug}>
+                <Link href={`/articles/${g.slug}`} className="font-semibold text-brand-primary hover:underline">
+                  {g.label}
+                </Link>
+                {i < PRICE_GUIDES.length - 2 ? ', ' : i === PRICE_GUIDES.length - 2 ? ' and ' : '.'}
+              </span>
+            ))}
           </p>
           <div className="mx-auto mt-8 h-px w-24 bg-brand-gold" />
         </Reveal>

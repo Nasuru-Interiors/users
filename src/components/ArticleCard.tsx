@@ -14,7 +14,8 @@ function formatDate(iso: string | null): string {
 export default function ArticleCard({ article }: { article: ArticleSummary }) {
   return (
     <article className="group relative overflow-hidden rounded-2xl border border-brand-ink/8 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
-      <Link href={`/articles/${article.slug}`}>
+      {/* Only the title is the link (short, descriptive anchor text for SEO); its ::after stretches over the card so the whole card stays clickable. */}
+      <div>
         <div className="relative h-52 w-full overflow-hidden bg-brand-bg">
           {article.cover_image_url ? (
             <Image
@@ -39,19 +40,21 @@ export default function ArticleCard({ article }: { article: ArticleSummary }) {
             <span>{article.reading_minutes} min read</span>
           </div>
           <h3 className="font-serif text-xl font-semibold leading-snug text-brand-ink transition-colors group-hover:text-brand-primary">
-            {article.title}
+            <Link href={`/articles/${article.slug}`} className="after:absolute after:inset-0 after:z-10">
+              {article.title}
+            </Link>
           </h3>
           {article.excerpt && (
             <p className="mt-2.5 line-clamp-3 text-sm leading-relaxed text-brand-muted">
               {article.excerpt}
             </p>
           )}
-          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary">
+          <span aria-hidden="true" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary">
             Read article
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </span>
         </div>
-      </Link>
+      </div>
       {/* Gold accent bar reveals on hover */}
       <div className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-brand-gold transition-transform duration-300 group-hover:scale-x-100" />
     </article>
