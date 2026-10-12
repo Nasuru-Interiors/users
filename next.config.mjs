@@ -8,11 +8,11 @@ const csp = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "object-src 'none'",
-  "img-src 'self' https://res.cloudinary.com data: blob:",
+  "img-src 'self' https://res.cloudinary.com https://www.google-analytics.com data: blob:",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
-  "connect-src 'self'",
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ''}`,
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
   'upgrade-insecure-requests',
 ].join('; ');
 

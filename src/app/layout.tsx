@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Fraunces } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 
 const sans = Inter({
@@ -94,6 +95,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-5ENCQ7BF7X"
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-5ENCQ7BF7X');
+            `,
+          }}
+        />
         {/* Warm up the Cloudinary connection early so the LCP image lands faster. */}
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
