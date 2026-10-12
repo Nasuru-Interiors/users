@@ -98,7 +98,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* Google tag (gtag.js) */}
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-5ENCQ7BF7X"
+          src="https://www.googletagmanager.com/gtag/js?id=G-2STZBPMQ0Z"
         />
         <Script
           id="gtag-init"
@@ -108,7 +108,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-5ENCQ7BF7X');
+              gtag('config', 'G-2STZBPMQ0Z');
             `,
           }}
         />
