@@ -7,16 +7,25 @@ import { breadcrumbJsonLd } from '@/lib/seo';
 
 export const revalidate = 60;
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { page?: string; category?: string };
+}): Promise<Metadata> {
   const s = await getSiteSettings();
+  // Paginated pages list different articles, so each one is its own canonical (Google advises
+  // against pointing page 2+ at page 1). Category-filtered views still canonicalise to /articles.
+  const page = Math.max(1, parseInt(searchParams.page || '1', 10) || 1);
+  const canonical = page > 1 && !searchParams.category ? `/articles?page=${page}` : '/articles';
+  const title = `Interior Design Articles & Decor Guides${page > 1 ? ` (Page ${page})` : ''}`;
   return {
-    title: 'Interior Design Articles & Decor Guides',
+    title,
     description: `Interior decor ideas, buying guides and styling tips for curtains, wallpapers, wall panels, flooring and lighting from ${s.business_name}.`,
-    alternates: { canonical: '/articles' },
+    alternates: { canonical },
     openGraph: {
-      title: `Interior Design Articles & Decor Guides | ${s.business_name}`,
+      title: `${title} | ${s.business_name}`,
       description: 'Interior decor ideas, buying guides and styling tips.',
-      url: '/articles',
+      url: canonical,
     },
   };
 }
