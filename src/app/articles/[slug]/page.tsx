@@ -16,7 +16,9 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const article = await getArticle(params.slug);
-  if (!article) return { title: 'Article not found' };
+  // Call notFound() here, not only in the page: metadata resolves before the root loading.tsx
+  // starts streaming, so this is what makes a missing slug return a real 404 (not a soft 404).
+  if (!article) notFound();
 
   const title = article.meta_title || article.title;
   const description = article.meta_description || article.excerpt;
