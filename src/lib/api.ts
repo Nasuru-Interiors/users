@@ -48,7 +48,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   youtube_url: '',
   tiktok_url: '',
   default_meta_title:
-    'Nasuru Interiors: Interior Deco Supply in Nigeria',
+    'Nasuru Interiors: Wall Panels & Interior Decor in Lagos',
   default_meta_description:
     'Nasuru Interiors supplies curtains, wallpapers, wall panels, flooring, lighting and decor in Nigeria. Quality products, fair prices and free quotes.',
   copyright_text: '',

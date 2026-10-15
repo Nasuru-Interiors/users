@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getArticle, getRelated, getSiteSettings } from '@/lib/api';
-import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import { DEFAULT_OG_IMAGE, articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import Image from 'next/image';
 import JsonLd from '@/components/JsonLd';
 import ArticleCard from '@/components/ArticleCard';
@@ -16,8 +16,8 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const article = await getArticle(params.slug);
-  // Call notFound() here, not only in the page: metadata resolves before the root loading.tsx
-  // starts streaming, so this is what makes a missing slug return a real 404 (not a soft 404).
+  // Call notFound() here, not only in the page: metadata resolves before the response starts
+  // streaming, so this is what makes a missing slug return a real 404 (not a soft 404).
   if (!article) notFound();
 
   const title = article.meta_title || article.title;
@@ -35,13 +35,13 @@ export async function generateMetadata({
       url: `/articles/${article.slug}`,
       publishedTime: article.published_at || undefined,
       modifiedTime: article.updated_at || undefined,
-      images: article.cover_image_url ? [{ url: article.cover_image_url }] : undefined,
+      images: [article.cover_image_url ? { url: article.cover_image_url } : DEFAULT_OG_IMAGE],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: article.cover_image_url ? [article.cover_image_url] : undefined,
+      images: [article.cover_image_url || DEFAULT_OG_IMAGE.url],
     },
   };
 }

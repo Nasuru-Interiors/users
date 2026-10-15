@@ -23,7 +23,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 import { getSiteSettings } from '@/lib/api';
-import { SITE_URL, localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
+import { DEFAULT_OG_IMAGE, SITE_URL, localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
@@ -68,11 +68,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description: s.default_meta_description,
       url: SITE_URL,
       locale: 'en_NG',
+      images: [DEFAULT_OG_IMAGE],
     },
     twitter: {
       card: 'summary_large_image',
       title: s.default_meta_title,
       description: s.default_meta_description,
+      images: [DEFAULT_OG_IMAGE.url],
     },
     robots: { index: true, follow: true },
   };
@@ -95,14 +97,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <head>
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js). lazyOnload waits for browser idle so the 170 KB tag
+            doesn't block the main thread during page load (mobile TBT/LCP). */}
         <Script
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://www.googletagmanager.com/gtag/js?id=G-2STZBPMQ0Z"
         />
         <Script
           id="gtag-init"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -118,11 +121,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <style dangerouslySetInnerHTML={{ __html: themeVars }} />
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand-ink focus:shadow-card"
+        >
+          Skip to main content
+        </a>
         <JsonLd data={localBusinessJsonLd(settings)} />
         <JsonLd data={organizationJsonLd(settings)} />
         <JsonLd data={websiteJsonLd(settings)} />
         <Header settings={settings} />
-        <main>{children}</main>
+        <main id="main-content" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         <Footer settings={settings} />
         <FloatingActions
           whatsapp={settings.whatsapp}

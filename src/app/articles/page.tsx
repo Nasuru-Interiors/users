@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getArticles, getCategories, getSiteSettings } from '@/lib/api';
 import ArticleCard from '@/components/ArticleCard';
 import JsonLd from '@/components/JsonLd';
-import { breadcrumbJsonLd } from '@/lib/seo';
+import { DEFAULT_OG_IMAGE, breadcrumbJsonLd } from '@/lib/seo';
 
 export const revalidate = 60;
 
@@ -26,6 +26,7 @@ export async function generateMetadata({
       title: `${title} | ${s.business_name}`,
       description: 'Interior decor ideas, buying guides and styling tips.',
       url: canonical,
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

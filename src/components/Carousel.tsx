@@ -67,16 +67,21 @@ export default function Carousel({ images }: { images: CarouselImage[] }) {
           </div>
 
           {images.length > 1 && (
-            <div className="absolute inset-x-0 bottom-5 flex justify-center gap-2.5">
+            <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1">
               {images.map((img, i) => (
+                // 24px tall tap target around the small visual dot (WCAG target size).
                 <button
                   key={img.id}
                   aria-label={`Go to slide ${i + 1}`}
                   onClick={() => setIndex(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === index ? 'w-8 bg-brand-gold' : 'w-2 bg-white/60 hover:bg-white'
-                  }`}
-                />
+                  className="group flex h-6 min-w-6 items-center justify-center px-1"
+                >
+                  <span
+                    className={`block h-2 rounded-full transition-all duration-300 ${
+                      i === index ? 'w-8 bg-brand-gold' : 'w-2 bg-white/60 group-hover:bg-white'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           )}

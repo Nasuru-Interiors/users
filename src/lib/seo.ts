@@ -6,6 +6,14 @@ const DEFAULT_SITE_URL =
 /** Canonical origin (no trailing slash) used for canonicals, sitemap and structured data. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, '');
 
+/** Branded share card (public/og-image.jpg, made in Canva) for pages without their own cover. */
+export const DEFAULT_OG_IMAGE = {
+  url: '/og-image.jpg',
+  width: 1200,
+  height: 675,
+  alt: 'Nasuru Interiors: wall panels and interior decor supply in Lagos, Nigeria',
+};
+
 /** HomeGoodsStore / LocalBusiness schema, the core of local SEO for an interior deco supplier. */
 export function localBusinessJsonLd(s: SiteSettings) {
   return {

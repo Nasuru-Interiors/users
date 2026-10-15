@@ -6,7 +6,11 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'How much do wallpapers and wall panels cost?',
-    a: 'Prices depend on the design, material and quantity. Share your room size and style preference and we will give you a free, no-obligation quote.',
+    a: 'Prices depend on the material, size and quantity. As a guide, our fluted WPC wall panels start from ₦5,500 per piece, PU stone panels from ₦25,000, UV marble sheets from ₦45,000 per 8ft x 4ft sheet, acrylic marble boards from ₦65,000 and marble sticker rolls from ₦3,000. Share your wall size and style and we will give you a free, no-obligation quote for the full job.',
+  },
+  {
+    q: 'Do you install wall panels and marble sheets?',
+    a: 'Yes. We supply and install, so our team can measure your wall, fix the panels or sheets with the right adhesive and trims, and seal the joints for a clean finish. Ask for installation when you request your quote.',
   },
   {
     q: 'Do you offer bulk and trade pricing for designers and contractors?',

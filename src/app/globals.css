@@ -39,9 +39,15 @@ body {
     @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-primary/25 px-6 py-2.5 text-sm font-semibold text-brand-primary transition-all duration-200 hover:border-brand-primary hover:bg-brand-primary hover:text-white;
   }
 
-  /* Small uppercase gold eyebrow label */
+  /* Small uppercase gold eyebrow label. Brand gold is only 2.2:1 on the light background, so
+     the text uses a deeper gold (4.8:1, WCAG AA); dark sections keep the bright brand gold. */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider2 text-brand-gold;
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider2;
+    color: #86680e;
+  }
+  .bg-brand-deep .eyebrow,
+  .bg-brand-ink .eyebrow {
+    @apply text-brand-gold;
   }
   .eyebrow::before {
     content: '';

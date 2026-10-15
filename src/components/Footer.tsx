@@ -91,7 +91,7 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-6 text-center text-xs text-white/50">
+      <div className="border-t border-white/10 py-6 text-center text-xs text-white/70">
         {copyrightText}
       </div>
     </footer>

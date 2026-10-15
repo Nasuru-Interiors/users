@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getAbout, getSiteSettings } from '@/lib/api';
 import Image from 'next/image';
 import JsonLd from '@/components/JsonLd';
-import { breadcrumbJsonLd } from '@/lib/seo';
+import { DEFAULT_OG_IMAGE, breadcrumbJsonLd } from '@/lib/seo';
 import { formatAddress } from '@/lib/format';
 
 export const revalidate = 60;
@@ -19,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `About ${businessName}: Interior Deco Supply`,
       description: `Learn about ${businessName}'s commitment to quality interior finishes, fair pricing and reliable supply for homes and commercial spaces.`,
       url: '/about',
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

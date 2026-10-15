@@ -8,6 +8,8 @@ const csp = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "object-src 'none'",
+  // Google Maps embed in the homepage showroom section.
+  "frame-src https://www.google.com https://maps.google.com",
   "img-src 'self' https://res.cloudinary.com https://www.google-analytics.com data: blob:",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",

@@ -6,6 +6,7 @@ import Carousel from '@/components/Carousel';
 import ArticleCard from '@/components/ArticleCard';
 import Reveal from '@/components/Reveal';
 import Faq from '@/components/Faq';
+import Showroom from '@/components/Showroom';
 import JsonLd from '@/components/JsonLd';
 import { faqJsonLd } from '@/lib/seo';
 import { FAQS } from '@/lib/faq';
@@ -217,6 +218,8 @@ export default async function HomePage() {
           <div className="mx-auto mt-8 h-px w-24 bg-brand-gold" />
         </Reveal>
       </section>
+
+      <Showroom settings={settings} />
 
       {/* FAQ */}
       <section className="bg-white py-20">

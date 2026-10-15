@@ -25,6 +25,9 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
             fill
             priority
             sizes="100vw"
+            // It's the LCP element and sits under a dark overlay, so lower quality is invisible
+            // but cuts the mobile download by about a third.
+            quality={40}
             className="animate-kenburns object-cover"
           />
           {/* blue gradient for legibility + brand warmth */}

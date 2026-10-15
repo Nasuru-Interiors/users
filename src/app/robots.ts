@@ -5,6 +5,6 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: '*', allow: '/', disallow: ['/api/'] },
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    // No `host`: it's a Yandex-only directive that Google ignores and validators flag as invalid.
   };
 }
