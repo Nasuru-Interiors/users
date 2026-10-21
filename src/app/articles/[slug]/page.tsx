@@ -15,16 +15,19 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const article = await getArticle(params.slug);
+  const [article, settings] = await Promise.all([getArticle(params.slug), getSiteSettings()]);
   // Call notFound() here, not only in the page: metadata resolves before the response starts
   // streaming, so this is what makes a missing slug return a real 404 (not a soft 404).
   if (!article) notFound();
 
   const title = article.meta_title || article.title;
   const description = article.meta_description || article.excerpt;
+  // Google cuts titles at about 60 characters. If the " | Business" suffix would push the
+  // title past that, drop the suffix so the keywords stay visible.
+  const fitsWithBrand = `${title} | ${settings.business_name}`.length <= 60;
 
   return {
-    title,
+    title: fitsWithBrand ? title : { absolute: title },
     description,
     keywords: article.keywords,
     alternates: { canonical: `/articles/${article.slug}` },

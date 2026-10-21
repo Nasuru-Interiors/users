@@ -12,7 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const businessName = s.business_name || 'Nasuru Interiors';
 
   return {
-    title: `About Us | ${businessName}`,
+    // The root layout's title template already appends " | {business name}".
+    title: 'About Us',
     description: `Discover ${businessName}, your interior deco supply partner for curtains, wallpapers, wall panels, flooring, lighting and decor accessories.`,
     alternates: { canonical: '/about' },
     openGraph: {
