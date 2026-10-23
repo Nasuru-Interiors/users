@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import type { HeroSettings, SiteSettings } from '@/lib/types';
 import GoogleRating from '@/components/GoogleRating';
 import SearchForm from '@/components/SearchForm';
+import QuickCalculator from '@/components/QuickCalculator';
 
 /**
  * Admin-designed hero. With background_type "image" + an image it renders the
@@ -16,7 +17,7 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
 
   return (
     <section
-      className="relative flex min-h-[92vh] items-center overflow-hidden"
+      className="relative overflow-hidden lg:flex lg:min-h-[92vh] lg:items-center"
       style={!useImage ? { backgroundColor: fallbackColor } : undefined}
     >
       {useImage ? (
@@ -28,8 +29,8 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
             priority
             sizes="100vw"
             // It's the LCP element and sits under a dark overlay, so lower quality is invisible
-            // but cuts the mobile download by about a third.
-            quality={40}
+            // but cuts the download by over half (1440px: 377 KB at q40, 264 KB at q30).
+            quality={30}
             className="animate-kenburns object-cover"
           />
           {/* blue gradient for legibility + brand warmth */}
@@ -51,13 +52,21 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
         />
       )}
 
-      <div className="relative z-10 mx-auto w-full max-w-content px-5">
-        <div className="max-w-2xl animate-fade-up">
+      <div className="relative z-10 mx-auto grid w-full max-w-content gap-10 px-5 pb-14 pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14 lg:py-28">
+        {/* Quick calculator: first thing on phones, right-hand column on desktop. It comes first
+            in the page so phone users (and keyboard/screen-reader users) reach it straight away. */}
+        <div className="lg:order-last">
+          <QuickCalculator whatsapp={settings.whatsapp} />
+        </div>
+
+        {/* No fade-in here: the heading is the phone LCP element, and animating it from
+            opacity 0 delayed LCP by the length of the animation. */}
+        <div>
           <span className="eyebrow mb-5" style={{ color: '#E9C75A' }}>
             Interior Deco Supply
           </span>
           <h1
-            className="font-serif text-4xl font-semibold leading-[1.08] sm:text-5xl md:text-6xl"
+            className="font-serif text-4xl font-semibold leading-[1.08] sm:text-5xl xl:text-6xl"
             style={{ color: hero.text_color || '#FFFFFF' }}
           >
             {hero.heading}
@@ -88,8 +97,8 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div className="absolute inset-x-0 bottom-7 z-10 flex justify-center">
+      {/* Scroll cue (desktop only; on phones the hero content runs on into the page) */}
+      <div className="absolute inset-x-0 bottom-7 z-10 hidden justify-center lg:flex">
         <ChevronDown size={26} className="animate-bounce text-white/70" />
       </div>
 

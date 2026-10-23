@@ -8,7 +8,6 @@ import Reveal from '@/components/Reveal';
 import Faq from '@/components/Faq';
 import Showroom from '@/components/Showroom';
 import GoogleReviews from '@/components/GoogleReviews';
-import CalculatorSection from '@/components/CalculatorSection';
 import Team from '@/components/Team';
 import JsonLd from '@/components/JsonLd';
 import { faqJsonLd } from '@/lib/seo';
@@ -82,8 +81,6 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-
-      <CalculatorSection whatsapp={settings.whatsapp} />
 
       {/* Latest articles */}
       {latest.items.length > 0 && (

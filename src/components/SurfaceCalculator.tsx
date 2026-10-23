@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Plus, Trash2 } from 'lucide-react';
 import { PRODUCTS, UNIT_TO_M, type ProductKind, type Unit } from '@/lib/products';
@@ -51,6 +51,19 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
     kind: 'sheet' as ProductKind,
     price: '',
   });
+
+  // Pre-fill from the hero quick calculator link (/calculator?p=&u=&w=&h=). Read after mount
+  // so the server render and the first browser render match.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const p = q.get('p');
+    const u = q.get('u') as Unit | null;
+    if (p && PRODUCTS.some((x) => x.id === p)) setProductId(p);
+    if (u && u in UNIT_TO_M) setUnit(u);
+    const w = q.get('w') || '';
+    const h = q.get('h') || '';
+    if (w || h) setWalls([{ id: 0, width: w, height: h }]);
+  }, []);
 
   const product = PRODUCTS.find((p) => p.id === productId);
   const item =

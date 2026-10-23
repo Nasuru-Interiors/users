@@ -37,6 +37,9 @@ const nextConfig = {
     // Optimize via Cloudinary's CDN instead of Vercel's image pipeline.
     loader: 'custom',
     loaderFile: './src/lib/cloudinaryLoader.ts',
+    // Add 1280/1440/1600 between Next's default 1200 and 1920 so common laptop screens get a
+    // right-sized full-width image instead of jumping to 1920px (the hero was 604 KB at 1920).
+    deviceSizes: [640, 750, 828, 1080, 1280, 1440, 1600, 1920, 2048],
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];

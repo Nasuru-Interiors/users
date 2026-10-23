@@ -73,12 +73,17 @@ export default function FloatingActions({
   }
 
   return (
-    <div ref={ref} className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    // The wrapper is click-through (pointer-events-none): the closed popup still takes up a
+    // 20rem x ~450px box, and on phones that box covered the lower half of the screen and
+    // swallowed taps meant for the page (e.g. the calculator fields). Only the visible
+    // controls opt back in with pointer-events-auto.
+    <div ref={ref} className="pointer-events-none fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
       <button
         aria-label="Back to top"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        tabIndex={showTop ? 0 : -1}
         className={`flex h-10 w-10 items-center justify-center rounded-[999px] bg-brand-ink text-white shadow-card transition-all duration-300 hover:bg-brand-primary ${
-          showTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+          showTop ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
         }`}
       >
         <ArrowUp size={18} />
@@ -89,7 +94,7 @@ export default function FloatingActions({
           {/* Popup card */}
           <div
             className={`w-[20rem] max-w-[calc(100vw-2.5rem)] overflow-hidden border border-black/5 bg-white shadow-card transition-all duration-200 ${
-              open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+              open ? 'pointer-events-auto visible translate-y-0 opacity-100' : 'pointer-events-none invisible translate-y-3 opacity-0'
             }`}
             role="dialog"
             aria-label="WhatsApp chat"
@@ -132,7 +137,7 @@ export default function FloatingActions({
           </div>
 
           {/* Launcher bubble */}
-          <div className="relative">
+          <div className="pointer-events-auto relative">
             {showBadge && (
               <>
                 {/* Pulse ring (disabled for reduced motion) */}

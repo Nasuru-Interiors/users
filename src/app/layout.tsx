@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Fraunces } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
+import Analytics from '@/components/Analytics';
 
 const sans = Inter({
   subsets: ['latin'],
@@ -97,24 +97,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <head>
-        {/* Google tag (gtag.js). lazyOnload waits for browser idle so the 170 KB tag
-            doesn't block the main thread during page load (mobile TBT/LCP). */}
-        <Script
-          strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtag/js?id=G-2STZBPMQ0Z"
-        />
-        <Script
-          id="gtag-init"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-2STZBPMQ0Z');
-            `,
-          }}
-        />
         {/* Warm up the Cloudinary connection early so the LCP image lands faster. */}
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
@@ -140,6 +122,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           businessName={settings.business_name}
           greeting={settings.whatsapp_greeting}
         />
+        {/* Google Analytics, deferred to first interaction or 4s after load. */}
+        <Analytics />
       </body>
     </html>
   );
