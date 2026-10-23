@@ -1,21 +1,25 @@
 import Link from 'next/link';
 import { ShieldCheck, Truck, Award, PhoneCall, LayoutGrid, Sparkles } from 'lucide-react';
-import { getArticles, getCarousel, getHero, getSiteSettings } from '@/lib/api';
+import { getAbout, getArticles, getCarousel, getHero, getSiteSettings } from '@/lib/api';
 import Hero from '@/components/Hero';
 import Carousel from '@/components/Carousel';
 import ArticleCard from '@/components/ArticleCard';
 import Reveal from '@/components/Reveal';
 import Faq from '@/components/Faq';
 import Showroom from '@/components/Showroom';
+import GoogleReviews from '@/components/GoogleReviews';
+import CalculatorSection from '@/components/CalculatorSection';
+import Team from '@/components/Team';
 import JsonLd from '@/components/JsonLd';
 import { faqJsonLd } from '@/lib/seo';
 import { FAQS } from '@/lib/faq';
+import { GOOGLE_PROFILE } from '@/lib/google';
 
 export const revalidate = 60;
 
 const STATS = [
   { value: '5+', label: 'Product categories' },
-  { value: '100%', label: 'Quality checked' },
+  { value: `${GOOGLE_PROFILE.rating.toFixed(1)}★`, label: 'Google rating' },
   { value: 'Trade', label: 'Pricing for pros' },
   { value: 'Free', label: 'Quotes' },
 ];
@@ -54,11 +58,12 @@ const PRICE_GUIDES = [
 ];
 
 export default async function HomePage() {
-  const [hero, settings, carousel, latest] = await Promise.all([
+  const [hero, settings, carousel, latest, about] = await Promise.all([
     getHero(),
     getSiteSettings(),
     getCarousel(),
     getArticles(1, 6),
+    getAbout(),
   ]);
 
   return (
@@ -77,6 +82,8 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      <CalculatorSection whatsapp={settings.whatsapp} />
 
       {/* Latest articles */}
       {latest.items.length > 0 && (
@@ -149,6 +156,8 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <GoogleReviews />
+
       <Carousel images={carousel} />
 
       {/* How it works */}
@@ -220,6 +229,8 @@ export default async function HomePage() {
       </section>
 
       <Showroom settings={settings} />
+
+      <Team team={about.team} className="bg-brand-bg" />
 
       {/* FAQ */}
       <section className="bg-white py-20">

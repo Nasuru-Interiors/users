@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getAbout, getSiteSettings } from '@/lib/api';
 import Image from 'next/image';
 import JsonLd from '@/components/JsonLd';
+import Team from '@/components/Team';
 import { DEFAULT_OG_IMAGE, breadcrumbJsonLd } from '@/lib/seo';
 import { formatAddress } from '@/lib/format';
 
@@ -91,6 +92,8 @@ export default async function AboutPage() {
           </div>
         )}
       </section>
+
+      <Team team={about.team} heading={`The People Behind ${businessName}`} className="bg-brand-bg" />
 
       {/* Contact band */}
       <section className="bg-white py-20">

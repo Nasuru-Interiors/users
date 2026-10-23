@@ -1,4 +1,5 @@
 import type { Article, SiteSettings } from './types';
+import { GOOGLE_PROFILE, OPENING_HOURS } from './google';
 
 const DEFAULT_SITE_URL =
   process.env.NODE_ENV === 'production' ? 'https://interiors.nasuru.com' : 'http://localhost:3000';
@@ -36,9 +37,19 @@ export function localBusinessJsonLd(s: SiteSettings) {
           },
         }
       : {}),
-    ...(s.lat && s.lng
-      ? { geo: { '@type': 'GeoCoordinates', latitude: s.lat, longitude: s.lng } }
-      : {}),
+    // Admin-set coordinates win; otherwise use the Google Business Profile pin.
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: s.lat ?? GOOGLE_PROFILE.lat,
+      longitude: s.lng ?? GOOGLE_PROFILE.lng,
+    },
+    hasMap: GOOGLE_PROFILE.mapsUrl,
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: OPENING_HOURS.days,
+      opens: OPENING_HOURS.opens,
+      closes: OPENING_HOURS.closes,
+    },
     areaServed: [
       ...(s.city ? [{ '@type': 'City', name: s.city }] : []),
       { '@type': 'Country', name: s.country || 'Nigeria' },

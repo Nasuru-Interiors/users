@@ -10,6 +10,7 @@ import { formatBusinessName } from '@/lib/format';
 const NAV = [
   { label: 'Home', href: '/' },
   { label: 'Articles', href: '/articles' },
+  { label: 'Calculator', href: '/calculator' },
   { label: 'About Us', href: '/about' },
 ];
 

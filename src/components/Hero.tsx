@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 import type { HeroSettings, SiteSettings } from '@/lib/types';
+import GoogleRating from '@/components/GoogleRating';
+import SearchForm from '@/components/SearchForm';
 
 /**
  * Admin-designed hero. With background_type "image" + an image it renders the
@@ -68,6 +70,8 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
               {hero.subheading}
             </p>
           )}
+          <GoogleRating tone="dark" link className="mt-5" />
+          <SearchForm className="mt-7" id="hero-search" />
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
             {hero.cta_label && (

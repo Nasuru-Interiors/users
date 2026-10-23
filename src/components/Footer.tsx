@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import type { SiteSettings } from '@/lib/types';
 import { formatAddress, formatBusinessName } from '@/lib/format';
+import { OPENING_HOURS } from '@/lib/google';
+import GoogleRating from '@/components/GoogleRating';
 
 export default function Footer({ settings }: { settings?: Partial<SiteSettings> | null }) {
   const s = settings || {};
@@ -39,6 +41,8 @@ export default function Footer({ settings }: { settings?: Partial<SiteSettings> 
             {secondPart && <span className="text-brand-gold"> {secondPart}</span>}
           </p>
           {s.tagline && <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">{s.tagline}</p>}
+          <GoogleRating tone="dark" className="mt-4" />
+          <p className="mt-2 text-sm text-white/70">{OPENING_HOURS.label}</p>
         </div>
 
         <div>

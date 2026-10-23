@@ -1,22 +1,19 @@
 import type { SiteSettings } from '@/lib/types';
 import { formatAddress } from '@/lib/format';
-
-/** Google Maps query: exact coordinates when the admin has set them, otherwise the address. */
-function mapQuery(s: SiteSettings): string {
-  if (s.lat && s.lng) return `${s.lat},${s.lng}`;
-  return [s.business_name, formatAddress(s)].filter(Boolean).join(', ');
-}
+import { GOOGLE_PROFILE, OPENING_HOURS } from '@/lib/google';
+import GoogleRating from '@/components/GoogleRating';
 
 /**
- * Showroom address, contact links and an embedded Google map: the local signals
- * (NAP + map) search engines look for on a store's homepage. The iframe is lazy so it
- * costs nothing until the visitor scrolls near it.
+ * Showroom address, hours, contact links and an embedded Google map pinned to the
+ * Google Business Profile: the local signals (NAP + map) search engines look for on a
+ * store's homepage. The iframe is lazy so it costs nothing until the visitor scrolls near it.
  */
 export default function Showroom({ settings }: { settings: SiteSettings }) {
   const address = formatAddress(settings);
   if (!address) return null;
 
-  const query = encodeURIComponent(mapQuery(settings));
+  const query = encodeURIComponent(GOOGLE_PROFILE.mapsQuery);
+  const ll = `${GOOGLE_PROFILE.lat},${GOOGLE_PROFILE.lng}`;
   const whatsapp = settings.whatsapp?.replace(/\D/g, '');
   const area = [settings.city, settings.state].filter(Boolean).join(', ');
 
@@ -28,6 +25,7 @@ export default function Showroom({ settings }: { settings: SiteSettings }) {
           <h2 className="mt-3 font-serif text-3xl font-semibold text-brand-ink sm:text-4xl">
             Our Showroom in {area || 'Lagos'}
           </h2>
+          <GoogleRating className="mt-3" />
           <p className="mt-4 leading-relaxed text-brand-muted">
             Wall panels, marble sheets and stone finishes look different under real light, so come and
             see them before you buy. At our showroom you can compare UV marble sheet patterns side by
@@ -44,6 +42,10 @@ export default function Showroom({ settings }: { settings: SiteSettings }) {
               <dt className="text-xs font-bold uppercase tracking-wider2 text-brand-muted">Address</dt>
               <dd className="mt-1">{address}</dd>
             </div>
+            <div>
+              <dt className="text-xs font-bold uppercase tracking-wider2 text-brand-muted">Opening hours</dt>
+              <dd className="mt-1">{OPENING_HOURS.label}</dd>
+            </div>
             {settings.phone && (
               <div>
                 <dt className="text-xs font-bold uppercase tracking-wider2 text-brand-muted">Phone</dt>
@@ -56,12 +58,7 @@ export default function Showroom({ settings }: { settings: SiteSettings }) {
             )}
           </dl>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${query}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
+            <a href={GOOGLE_PROFILE.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
               Get directions on Google Maps
             </a>
             {whatsapp && (
@@ -79,7 +76,7 @@ export default function Showroom({ settings }: { settings: SiteSettings }) {
         <div className="relative aspect-[4/3] w-full overflow-hidden border border-brand-ink/8 bg-brand-bg shadow-card">
           <iframe
             title={`Map showing ${settings.business_name} at ${address}`}
-            src={`https://www.google.com/maps?q=${query}&z=16&output=embed`}
+            src={`https://www.google.com/maps?q=${query}&ll=${ll}&z=17&output=embed`}
             className="absolute inset-0 h-full w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
