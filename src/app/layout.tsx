@@ -9,12 +9,14 @@ const sans = Inter({
   variable: '--font-sans',
 });
 
-// Elegant variable serif for headings, gives the brand a premium, editorial feel.
+// Elegant serif for headings, gives the brand a premium, editorial feel. Every serif use on the
+// site is semibold, so load that one static weight instead of the full variable font with the
+// optical-size axis (67 KB): it is the mobile LCP heading's font, so its size delays LCP.
 const serif = Fraunces({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-serif',
-  axes: ['opsz'],
+  weight: ['600'],
 });
 
 export const viewport: Viewport = {

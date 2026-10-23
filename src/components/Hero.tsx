@@ -31,7 +31,9 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
             // It's the LCP element and sits under a dark overlay, so lower quality is invisible
             // but cuts the download by over half (1440px: 377 KB at q40, 264 KB at q30).
             quality={30}
-            className="animate-kenburns object-cover"
+            // Slow zoom on desktop only: on phones it kept the screen changing for 14s, which
+            // pushed Speed Index up, and the hero sits behind the calculator there anyway.
+            className="object-cover lg:animate-kenburns"
           />
           {/* blue gradient for legibility + brand warmth */}
           <div
