@@ -50,6 +50,8 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
     [width, height, k, product],
   );
   const ready = result.total > 0;
+  const hasWidth = num(width) > 0;
+  const hasHeight = num(height) > 0;
   const plural = (n: number) => `${product.unitName}${n === 1 ? '' : 's'}`;
 
   const changeUnit = (to: Unit) => {
@@ -62,7 +64,15 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
     height ? `&h=${encodeURIComponent(height)}` : ''
   }`;
   const waText = ready
-    ? `Hello Nasuru Interiors, I used your calculator. ${product.name} (${product.size}) for a wall ${width}${unit} wide x ${height}${unit} high: ${result.total} ${plural(result.total)}. Please confirm the price and delivery.`
+    ? [
+        'Hello Nasuru Interiors, I used your calculator.',
+        `Product: ${product.name} (${product.size})`,
+        `Wall: ${width}${unit} wide x ${height}${unit} high`,
+        `Area: ${result.netArea.toFixed(2)} m²`,
+        `Quantity: ${result.total} ${plural(result.total)} (${result.needed} needed + ${result.spares} spare)`,
+        product.price !== null ? `Estimated material cost: ${naira(result.total * product.price)}` : 'Price: on request',
+        'Please confirm the final price and delivery.',
+      ].join('\n')
     : '';
   const waHref = whatsapp && ready ? `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(waText)}` : null;
 
@@ -70,9 +80,11 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
     <div className="w-full border border-white/10 bg-white p-5 text-brand-ink shadow-card sm:p-6">
       <p className="flex items-center gap-2 font-serif text-xl font-semibold">
         <Calculator size={20} className="text-brand-primary" aria-hidden="true" />
-        How many do you need?
+        Quick wall estimate
       </p>
-      <p className="mt-1 text-sm text-brand-muted">Enter your wall size for an instant count and price.</p>
+      <p className="mt-1 text-sm leading-relaxed text-brand-muted">
+        Get a material estimate for one wall. We include 10% extra for cuts.
+      </p>
 
       <div className="mt-4 space-y-3">
         <div>
@@ -83,26 +95,32 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
             {PRODUCTS.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.name}, {p.size}
+                {p.price !== null ? ` · ${naira(p.price)}/${p.unitName}` : ' · price on request'}
               </option>
             ))}
           </select>
         </div>
 
-        <div className="flex gap-1.5" role="group" aria-label="Measuring unit">
-          {UNITS.map((u) => (
-            <button
-              key={u}
-              type="button"
-              aria-pressed={unit === u}
-              onClick={() => changeUnit(u)}
-              className={`flex-1 border py-2 text-xs font-semibold transition-colors ${
-                unit === u ? 'border-brand-primary bg-brand-primary text-white' : 'border-brand-ink/15 hover:border-brand-primary'
-              }`}
-            >
-              {u === 'm' ? 'Metres' : u === 'ft' ? 'Feet' : 'Cm'}
-            </button>
-          ))}
-        </div>
+        <fieldset>
+          <legend className={labelCls}>Measure in</legend>
+          <div className="flex gap-1.5">
+            {UNITS.map((u) => (
+              <button
+                key={u}
+                type="button"
+                aria-pressed={unit === u}
+                onClick={() => changeUnit(u)}
+                className={`min-h-11 flex-1 border px-2 py-2 text-xs font-semibold transition-colors ${
+                  unit === u
+                    ? 'border-brand-primary bg-brand-primary text-white'
+                    : 'border-brand-ink/15 hover:border-brand-primary'
+                }`}
+              >
+                {u === 'm' ? 'Metres' : u === 'ft' ? 'Feet' : 'Cm'}
+              </button>
+            ))}
+          </div>
+        </fieldset>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
@@ -114,6 +132,7 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
               inputMode="decimal"
               className={inputCls}
               value={width}
+              autoComplete="off"
               placeholder={unit === 'm' ? '3.5' : unit === 'ft' ? '12' : '350'}
               onChange={(e) => setWidth(e.target.value)}
             />
@@ -127,6 +146,7 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
               inputMode="decimal"
               className={inputCls}
               value={height}
+              autoComplete="off"
               placeholder={unit === 'm' ? '2.7' : unit === 'ft' ? '9' : '270'}
               onChange={(e) => setHeight(e.target.value)}
             />
@@ -134,19 +154,32 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
         </div>
       </div>
 
-      <div className="mt-4 bg-brand-bg p-4" aria-live="polite">
+      <div className="mt-4 bg-brand-bg p-4" aria-live="polite" aria-atomic="true">
         {ready ? (
           <>
-            <p className="font-serif text-3xl font-semibold text-brand-ink">
+            <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted">Estimated quantity</p>
+            <p className="mt-1 font-serif text-3xl font-semibold text-brand-ink">
               {result.total} <span className="text-lg">{plural(result.total)}</span>
             </p>
-            <p className="mt-1 text-xs text-brand-muted">
-              {result.needed} for the wall + {result.spares} spare · {result.netArea.toFixed(2)} m²
-              {product.price ? ` · about ${naira(result.total * product.price)}` : ' · price on request'}
+            <p className="mt-1 text-sm text-brand-muted">
+              {result.needed} to cover the wall + {result.spares} spare · {result.netArea.toFixed(2)} m²
+            </p>
+            <div className="mt-3 border-t border-brand-ink/10 pt-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted">Estimated material cost</p>
+              <p className="mt-1 text-lg font-semibold text-brand-ink">
+                {product.price !== null ? `About ${naira(result.total * product.price)}` : 'Price on request'}
+              </p>
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-brand-muted">
+              Materials only; final quantity and price may vary. Excludes delivery and installation.
             </p>
           </>
         ) : (
-          <p className="text-sm text-brand-muted">Your count and estimated cost appear here.</p>
+          <p className="text-sm leading-relaxed text-brand-muted">
+            {hasWidth || hasHeight
+              ? 'Add the wall’s width and height to see your estimated quantity and cost.'
+              : 'Enter the wall’s width and height to see your estimated quantity and cost.'}
+          </p>
         )}
       </div>
 
@@ -157,7 +190,7 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
           </a>
         )}
         <Link href={fullHref} className="text-center text-sm font-semibold text-brand-primary hover:underline">
-          Add doors, windows and more walls →
+          Calculate multiple walls and openings →
         </Link>
       </div>
     </div>

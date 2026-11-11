@@ -105,7 +105,14 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
 
   const plural = (n: number) => `${unitName}${n === 1 ? '' : 's'}`;
   const ready = result.netArea > 0 && result.pieceArea > 0;
-  const cost = ready && price ? result.total * price : null;
+  const cost = ready && price !== null ? result.total * price : null;
+  const hasIncompleteMeasurements =
+    walls.some((w) => (num(w.width) > 0) !== (num(w.height) > 0)) ||
+    openings.some((o) => {
+      const hasWidth = num(o.width) > 0;
+      const hasHeight = num(o.height) > 0;
+      return (hasWidth || hasHeight) && !(hasWidth && hasHeight);
+    });
 
   const waText = ready
     ? [
@@ -125,11 +132,11 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
   const waHref = whatsapp ? `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(waText)}` : null;
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+    <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:gap-8">
       {/* Inputs */}
-      <div className="space-y-7 border border-brand-ink/8 bg-white p-6 shadow-soft sm:p-8">
+      <div className="order-last space-y-7 border border-brand-ink/8 bg-white p-5 shadow-soft sm:p-8 lg:order-first">
         <fieldset>
-          <legend className="mb-2 text-sm font-semibold text-brand-ink">1. Measure in</legend>
+          <legend className="mb-3 text-sm font-semibold text-brand-ink">1. Choose your measuring unit</legend>
           <div className="flex gap-2">
             {UNITS.map((u) => (
               <button
@@ -151,12 +158,15 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
 
         <fieldset>
           <legend className="mb-2 text-sm font-semibold text-brand-ink">2. Your walls ({unit})</legend>
+          <p className="mb-3 text-xs leading-relaxed text-brand-muted">
+            Measure the width and height of each wall you want to cover.
+          </p>
           <div className="space-y-3">
             {walls.map((w, i) => (
-              <div key={w.id} className="grid grid-cols-[1fr_1fr_auto] items-end gap-3">
+              <div key={w.id} className="grid grid-cols-[1fr_1fr_auto] items-end gap-2 sm:gap-3">
                 <div>
                   <label htmlFor={`w-${w.id}`} className={labelCls}>
-                    Wall {i + 1} width
+                    Wall {i + 1} width ({unit})
                   </label>
                   <input
                     id={`w-${w.id}`}
@@ -169,7 +179,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
                 </div>
                 <div>
                   <label htmlFor={`h-${w.id}`} className={labelCls}>
-                    Height
+                    Height ({unit})
                   </label>
                   <input
                     id={`h-${w.id}`}
@@ -203,13 +213,16 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
 
         <fieldset>
           <legend className="mb-2 text-sm font-semibold text-brand-ink">3. Doors and windows to leave out ({unit})</legend>
+          <p className="mb-3 text-xs leading-relaxed text-brand-muted">
+            Optional. Add openings you will not cover; their area is deducted from the estimate.
+          </p>
           {openings.length === 0 && <p className="text-sm text-brand-muted">None added. Add any door, window or opening you won&apos;t cover.</p>}
           <div className="space-y-3">
             {openings.map((o, i) => (
-              <div key={o.id} className="grid grid-cols-[1fr_1fr_70px_auto] items-end gap-3">
+              <div key={o.id} className="grid grid-cols-2 items-end gap-2 sm:grid-cols-[1fr_1fr_70px_auto] sm:gap-3">
                 <div>
                   <label htmlFor={`ow-${o.id}`} className={labelCls}>
-                    Opening {i + 1} width
+                    Opening {i + 1} width ({unit})
                   </label>
                   <input
                     id={`ow-${o.id}`}
@@ -221,7 +234,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
                 </div>
                 <div>
                   <label htmlFor={`oh-${o.id}`} className={labelCls}>
-                    Height
+                    Height ({unit})
                   </label>
                   <input
                     id={`oh-${o.id}`}
@@ -247,7 +260,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
                   type="button"
                   aria-label={`Remove opening ${i + 1}`}
                   onClick={() => setOpenings((os) => os.filter((x) => x.id !== o.id))}
-                  className="flex h-[42px] w-[42px] items-center justify-center border border-brand-ink/15 text-brand-muted hover:text-brand-ink"
+                  className="flex h-[42px] w-[42px] items-center justify-center border border-brand-ink/15 text-brand-muted hover:text-brand-ink sm:col-auto"
                 >
                   <Trash2 size={16} aria-hidden="true" />
                 </button>
@@ -272,7 +285,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
             {PRODUCTS.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.name}, {p.size}
-                {p.price ? ` (${naira(p.price)})` : ''}
+                {p.price !== null ? ` (${naira(p.price)})` : ' (price on request)'}
               </option>
             ))}
             <option value={CUSTOM}>Another size (enter your own)</option>
@@ -368,7 +381,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
       </div>
 
       {/* Result */}
-      <div className="lg:sticky lg:top-24 lg:self-start">
+      <div className="order-first lg:sticky lg:top-24 lg:order-last lg:self-start">
         <div className="bg-brand-deep p-6 text-white shadow-card sm:p-8" aria-live="polite">
           <p className="text-xs font-bold uppercase tracking-wider2 text-brand-gold">You need</p>
           {ready ? (
@@ -401,7 +414,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
                 </div>
                 <div className="flex justify-between gap-4 border-t border-white/15 pt-3 text-base font-semibold">
                   <dt>Estimated material cost</dt>
-                  <dd>{cost ? naira(cost) : 'Price on request'}</dd>
+                  <dd>{cost !== null ? naira(cost) : 'Price on request'}</dd>
                 </div>
               </dl>
               <p className="mt-4 text-xs leading-relaxed text-white/70">
@@ -410,9 +423,20 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
               </p>
             </>
           ) : (
-            <p className="mt-3 text-white/80">
-              Enter the width and height of at least one wall to see how many{' '}
-              {productId === CUSTOM ? 'items' : `${product!.unitName}s`} you need.
+            <div className="mt-3">
+              <p className="text-white/80">
+                Enter the width and height of at least one wall to see how many{' '}
+                {productId === CUSTOM ? 'items' : `${product!.unitName}s`} you need.
+              </p>
+              <p className="mt-3 text-xs leading-relaxed text-white/65">
+                The estimate updates as you measure. Add doors and windows only if you want to exclude them.
+              </p>
+            </div>
+          )}
+
+          {hasIncompleteMeasurements && (
+            <p className="mt-4 border-t border-white/15 pt-3 text-xs leading-relaxed text-white/75">
+              Complete both width and height for each wall or opening; unfinished measurements are not included.
             </p>
           )}
 
