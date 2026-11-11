@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Calculator } from 'lucide-react';
-import { PRODUCTS, UNIT_TO_M, type Unit } from '@/lib/products';
+import { describeProduct, PRODUCTS, UNIT_TO_M, type Unit } from '@/lib/products';
 import { calculateCoverage } from '@/lib/coverage';
 
 const UNITS: Unit[] = ['m', 'ft', 'cm'];
@@ -66,7 +66,7 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
   const waText = ready
     ? [
         'Hello Nasuru Interiors, I used your calculator.',
-        `Product: ${product.name} (${product.size})`,
+        `Product: ${describeProduct(product)}`,
         `Wall: ${width}${unit} wide x ${height}${unit} high`,
         `Area: ${result.netArea.toFixed(2)} m²`,
         `Quantity: ${result.total} ${plural(result.total)} (${result.needed} needed + ${result.spares} spare)`,
@@ -94,7 +94,7 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
           <select id="qc-product" className={inputCls} value={productId} onChange={(e) => setProductId(e.target.value)}>
             {PRODUCTS.map((p) => (
               <option key={p.id} value={p.id}>
-                {p.name}, {p.size}
+                {describeProduct(p)}
                 {p.price !== null ? ` · ${naira(p.price)}/${p.unitName}` : ' · price on request'}
               </option>
             ))}

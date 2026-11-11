@@ -1,25 +1,53 @@
 [
   {
     "id": "uv-marble-8x4",
-    "name": "UV / PVC marble sheet",
-    "size": "8ft x 4ft",
+    "name": "PVC/UV marble sheet",
+    "size": "4ft x 8ft",
     "width": 1.2192,
     "length": 2.4384,
     "kind": "sheet",
-    "price": 45000,
+    "price": 30000,
     "unitName": "sheet",
+    "material": "Plastic",
+    "origin": "Local",
+    "thicknessMm": 3,
     "guide": "/articles/price-of-marble-sheets-in-nigeria-lagos-2026"
   },
   {
     "id": "uv-marble-9x4",
-    "name": "PVC marble sheet",
+    "name": "PVC/UV marble sheet",
     "size": "9ft x 4ft",
     "width": 1.2192,
     "length": 2.7432,
     "kind": "sheet",
-    "price": null,
+    "price": 45000,
     "unitName": "sheet",
+    "material": "PVC",
+    "origin": "Imported",
+    "thicknessMm": 4,
     "guide": "/articles/9ft-by-4ft-pvc-marble-sheet-3mm-size-uses-and-installation-guide"
+  },
+  {
+    "id": "charcoal-board-9x4",
+    "name": "Charcoal board",
+    "size": "9ft x 4ft",
+    "width": 1.2192,
+    "length": 2.7432,
+    "kind": "sheet",
+    "price": 65000,
+    "unitName": "board",
+    "material": "PVC",
+    "thicknessMm": 5
+  },
+  {
+    "id": "acrylic-mirror-9x4",
+    "name": "Acrylic mirror board",
+    "size": "9ft x 4ft",
+    "width": 1.2192,
+    "length": 2.7432,
+    "kind": "sheet",
+    "price": 65000,
+    "unitName": "board"
   },
   {
     "id": "acrylic-marble-8x4",
@@ -30,17 +58,8 @@
     "kind": "sheet",
     "price": 65000,
     "unitName": "board",
+    "thicknessMm": 5,
     "guide": "/articles/price-of-acrylic-marble-board-in-nigeria-lagos-2026"
-  },
-  {
-    "id": "acrylic-mirror-10x4",
-    "name": "Acrylic mirror board",
-    "size": "10ft x 4ft",
-    "width": 1.2192,
-    "length": 3.048,
-    "kind": "sheet",
-    "price": null,
-    "unitName": "board"
   },
   {
     "id": "foam-panel-2x9",
@@ -49,18 +68,19 @@
     "width": 0.6096,
     "length": 2.7432,
     "kind": "sheet",
-    "price": null,
+    "price": 20000,
     "unitName": "panel"
   },
   {
     "id": "pu-stone-60x120",
     "name": "PU stone wall panel",
-    "size": "60cm x 120cm",
-    "width": 0.6,
-    "length": 1.2,
+    "size": "2ft x 4ft",
+    "width": 0.6096,
+    "length": 1.2192,
     "kind": "sheet",
     "price": 25000,
     "unitName": "panel",
+    "thicknessMm": 30,
     "guide": "/articles/price-of-pu-stone-wall-panels-in-nigeria-lagos-2026"
   },
   {
@@ -72,7 +92,21 @@
     "kind": "strip",
     "price": 5500,
     "unitName": "panel",
+    "material": "WPC",
+    "thicknessMm": 12,
     "guide": "/articles/price-of-fluted-wall-panels-in-nigeria-lagos-2026"
+  },
+  {
+    "id": "wpc-exterior-fluted-06x9",
+    "name": "WPC exterior fluted panel",
+    "size": "0.6ft x 9ft",
+    "width": 0.18288,
+    "length": 2.7432,
+    "kind": "strip",
+    "price": 31500,
+    "unitName": "panel",
+    "material": "WPC",
+    "thicknessMm": 16
   },
   {
     "id": "marble-sticker-60x300",

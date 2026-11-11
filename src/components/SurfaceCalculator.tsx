@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Plus, Trash2 } from 'lucide-react';
-import { PRODUCTS, UNIT_TO_M, type ProductKind, type Unit } from '@/lib/products';
+import { describeProduct, PRODUCTS, UNIT_TO_M, type ProductKind, type Unit } from '@/lib/products';
 import { calculateCoverage } from '@/lib/coverage';
 
 type Row = { id: number; width: string; height: string };
@@ -79,7 +79,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
   const itemLabel =
     productId === CUSTOM
       ? `custom item ${custom.width || '?'}${custom.widthUnit} x ${custom.length || '?'}${custom.lengthUnit}`
-      : `${product!.name} (${product!.size})`;
+      : describeProduct(product!);
 
   const k = UNIT_TO_M[unit];
   const result = useMemo(
@@ -284,7 +284,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
           <select id="calc-product" className={inputCls} value={productId} onChange={(e) => setProductId(e.target.value)}>
             {PRODUCTS.map((p) => (
               <option key={p.id} value={p.id}>
-                {p.name}, {p.size}
+                {describeProduct(p)}
                 {p.price !== null ? ` (${naira(p.price)})` : ' (price on request)'}
               </option>
             ))}
