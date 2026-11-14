@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Plus, Trash2 } from 'lucide-react';
-import { describeProduct, PRODUCTS, UNIT_TO_M, type ProductKind, type Unit } from '@/lib/products';
+import { describeProduct, UNIT_TO_M, type Product, type ProductKind, type Unit } from '@/lib/products';
 import { calculateCoverage } from '@/lib/coverage';
 
 type Row = { id: number; width: string; height: string };
@@ -33,14 +33,20 @@ const inputCls =
   'w-full border border-brand-ink/15 bg-white px-3 py-2.5 text-sm text-brand-ink focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20';
 const labelCls = 'mb-1 block text-xs font-semibold text-brand-muted';
 
-export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
+export default function SurfaceCalculator({
+  whatsapp,
+  products,
+}: {
+  whatsapp?: string;
+  products: Product[];
+}) {
   // Row ids live per component (not module-level) so server and browser render the same ids.
   const nextId = useRef(1);
   const newRow = (): Row => ({ id: nextId.current++, width: '', height: '' });
   const [unit, setUnit] = useState<Unit>('m');
   const [walls, setWalls] = useState<Row[]>([{ id: 0, width: '', height: '' }]);
   const [openings, setOpenings] = useState<OpeningRow[]>([]);
-  const [productId, setProductId] = useState(PRODUCTS[0].id);
+  const [productId, setProductId] = useState(products[0]?.id ?? CUSTOM);
   const [waste, setWaste] = useState(10);
   // Custom item: each side has its own unit, so "2ft x 1.2m" works.
   const [custom, setCustom] = useState({
@@ -58,26 +64,33 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
     const q = new URLSearchParams(window.location.search);
     const p = q.get('p');
     const u = q.get('u') as Unit | null;
-    if (p && PRODUCTS.some((x) => x.id === p)) setProductId(p);
+    if (p && products.some((x) => x.id === p)) setProductId(p);
     if (u && u in UNIT_TO_M) setUnit(u);
     const w = q.get('w') || '';
     const h = q.get('h') || '';
     if (w || h) setWalls([{ id: 0, width: w, height: h }]);
-  }, []);
+  }, [products]);
 
-  const product = PRODUCTS.find((p) => p.id === productId);
+  useEffect(() => {
+    if (productId !== CUSTOM && !products.some((item) => item.id === productId)) {
+      setProductId(products[0]?.id ?? CUSTOM);
+    }
+  }, [products, productId]);
+
+  const product = products.find((p) => p.id === productId) ?? products[0];
+  const isCustom = productId === CUSTOM || !product;
   const item =
-    productId === CUSTOM
+    isCustom
       ? {
           width: num(custom.width) * UNIT_TO_M[custom.widthUnit],
           length: num(custom.length) * UNIT_TO_M[custom.lengthUnit],
           kind: custom.kind,
         }
       : { width: product!.width, length: product!.length, kind: product!.kind };
-  const price = productId === CUSTOM ? num(custom.price) || null : product!.price;
-  const unitName = productId === CUSTOM ? (custom.kind === 'roll' ? 'roll' : 'piece') : product!.unitName;
+  const price = isCustom ? num(custom.price) || null : product!.price;
+  const unitName = isCustom ? (custom.kind === 'roll' ? 'roll' : 'piece') : product!.unitName;
   const itemLabel =
-    productId === CUSTOM
+    isCustom
       ? `custom item ${custom.width || '?'}${custom.widthUnit} x ${custom.length || '?'}${custom.lengthUnit}`
       : describeProduct(product!);
 
@@ -282,7 +295,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
             Product
           </label>
           <select id="calc-product" className={inputCls} value={productId} onChange={(e) => setProductId(e.target.value)}>
-            {PRODUCTS.map((p) => (
+            {products.map((p) => (
               <option key={p.id} value={p.id}>
                 {describeProduct(p)}
                 {p.price !== null ? ` (${naira(p.price)})` : ' (price on request)'}
@@ -291,7 +304,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
             <option value={CUSTOM}>Another size (enter your own)</option>
           </select>
 
-          {productId === CUSTOM && (
+          {isCustom && (
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {(['width', 'length'] as const).map((side) => {
                 const unitKey = side === 'width' ? 'widthUnit' : 'lengthUnit';
@@ -426,7 +439,7 @@ export default function SurfaceCalculator({ whatsapp }: { whatsapp?: string }) {
             <div className="mt-3">
               <p className="text-white/80">
                 Enter the width and height of at least one wall to see how many{' '}
-                {productId === CUSTOM ? 'items' : `${product!.unitName}s`} you need.
+                {isCustom ? 'items' : `${product!.unitName}s`} you need.
               </p>
               <p className="mt-3 text-xs leading-relaxed text-white/65">
                 The estimate updates as you measure. Add doors and windows only if you want to exclude them.

@@ -5,13 +5,22 @@ import type { HeroSettings, SiteSettings } from '@/lib/types';
 import GoogleRating from '@/components/GoogleRating';
 import SearchForm from '@/components/SearchForm';
 import QuickCalculator from '@/components/QuickCalculator';
+import type { Product } from '@/lib/products';
 
 /**
  * Admin-designed hero. With background_type "image" + an image it renders the
  * Cloudinary image under a blue gradient; otherwise it falls back to a rich
  * solid-color background (admin-set background_color / default_hero_color).
  */
-export default function Hero({ hero, settings }: { hero: HeroSettings; settings: SiteSettings }) {
+export default function Hero({
+  hero,
+  settings,
+  products,
+}: {
+  hero: HeroSettings;
+  settings: SiteSettings;
+  products: Product[];
+}) {
   const useImage = hero.background_type === 'image' && !!hero.image_url;
   const fallbackColor = hero.background_color || settings.default_hero_color || '#2F5D8C';
 
@@ -58,7 +67,7 @@ export default function Hero({ hero, settings }: { hero: HeroSettings; settings:
         {/* Quick calculator: first thing on phones, right-hand column on desktop. It comes first
             in the page so phone users (and keyboard/screen-reader users) reach it straight away. */}
         <div className="lg:order-last">
-          <QuickCalculator whatsapp={settings.whatsapp} />
+          <QuickCalculator whatsapp={settings.whatsapp} products={products} />
         </div>
 
         {/* No fade-in here: the heading is the phone LCP element, and animating it from

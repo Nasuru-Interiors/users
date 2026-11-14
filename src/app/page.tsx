@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ShieldCheck, Truck, Award, PhoneCall, LayoutGrid, Sparkles } from 'lucide-react';
-import { getAbout, getArticles, getCarousel, getHero, getSiteSettings } from '@/lib/api';
+import { getAbout, getArticles, getCarousel, getHero, getProducts, getSiteSettings } from '@/lib/api';
 import Hero from '@/components/Hero';
 import Carousel from '@/components/Carousel';
 import ArticleCard from '@/components/ArticleCard';
@@ -57,18 +57,19 @@ const PRICE_GUIDES = [
 ];
 
 export default async function HomePage() {
-  const [hero, settings, carousel, latest, about] = await Promise.all([
+  const [hero, settings, carousel, latest, about, products] = await Promise.all([
     getHero(),
     getSiteSettings(),
     getCarousel(),
     getArticles(1, 6),
     getAbout(),
+    getProducts(),
   ]);
 
   return (
     <>
       <JsonLd data={faqJsonLd(FAQS)} />
-      <Hero hero={hero} settings={settings} />
+      <Hero hero={hero} settings={settings} products={products} />
 
       {/* Stats band */}
       <section className="bg-brand-ink">

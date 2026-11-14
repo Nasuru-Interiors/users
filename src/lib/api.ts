@@ -8,6 +8,7 @@ import type {
   Paginated,
   SiteSettings,
 } from './types';
+import { PRODUCTS, type Product } from './products';
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
 
@@ -94,6 +95,11 @@ export const getAbout = () =>
   });
 
 export const getCategories = () => get<Category[]>('/categories', []);
+
+export const getProducts = async () => {
+  const products = await get<Product[]>('/products', PRODUCTS);
+  return products.length ? products : PRODUCTS;
+};
 
 export const getArticles = (page = 1, limit = 9, featured = false, category?: string) =>
   get<Paginated<ArticleSummary>>(

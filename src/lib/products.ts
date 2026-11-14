@@ -24,17 +24,22 @@ export interface Product {
   /** Price per piece or roll in naira; null when the price isn't published. */
   price: number | null;
   unitName: string;
-  material?: string;
-  origin?: string;
+  material?: string | null;
+  origin?: string | null;
   /** Thickness in millimetres. */
-  thicknessMm?: number;
+  thicknessMm?: number | null;
   /** Price guide for this product, if there is one. */
-  guide?: string;
+  guide?: string | null;
+  description?: string;
+  imageUrl?: string | null;
+  imageAlt?: string;
+  featured?: boolean;
+  sortOrder?: number;
 }
 
 export function describeProduct(product: Product): string {
   const details: string[] = [];
-  if (product.thicknessMm !== undefined) details.push(`${product.thicknessMm}mm`);
+  if (product.thicknessMm != null) details.push(`${product.thicknessMm}mm`);
   if (product.origin) details.push(product.origin);
   if (product.material) details.push(product.material);
   return `${product.name}, ${product.size}${details.length ? ` · ${details.join(' · ')}` : ''}`;
@@ -57,7 +62,7 @@ export const PRODUCTS: Product[] = productData.map((product) => {
     !Number.isFinite(product.length) ||
     product.length <= 0 ||
     (product.price !== null && (!Number.isFinite(product.price) || product.price < 0)) ||
-    (product.thicknessMm !== undefined &&
+    (product.thicknessMm != null &&
       (!Number.isFinite(product.thicknessMm) || product.thicknessMm <= 0))
   ) {
     throw new Error(`Invalid dimensions or price for calculator product "${product.id}".`);

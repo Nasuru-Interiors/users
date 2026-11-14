@@ -1,9 +1,9 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Calculator } from 'lucide-react';
-import { describeProduct, PRODUCTS, UNIT_TO_M, type Unit } from '@/lib/products';
+import { describeProduct, UNIT_TO_M, type Product, type Unit } from '@/lib/products';
 import { calculateCoverage } from '@/lib/coverage';
 
 const UNITS: Unit[] = ['m', 'ft', 'cm'];
@@ -31,24 +31,31 @@ const labelCls = 'mb-1 block text-xs font-semibold text-brand-muted';
  * Compact one-wall calculator for the hero. The full version (several walls, doors and
  * windows, custom sizes) lives at /calculator and opens pre-filled with these values.
  */
-export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
-  const [productId, setProductId] = useState(PRODUCTS[0].id);
+export default function QuickCalculator({ whatsapp, products }: { whatsapp?: string; products: Product[] }) {
+  const [productId, setProductId] = useState(products[0]?.id ?? '');
   const [unit, setUnit] = useState<Unit>('m');
   const [width, setWidth] = useState('');
   const [height, setHeight] = useState('');
 
-  const product = PRODUCTS.find((p) => p.id === productId)!;
+  useEffect(() => {
+    if (!products.some((item) => item.id === productId)) setProductId(products[0]?.id ?? '');
+  }, [products, productId]);
+
+  const product = products.find((p) => p.id === productId) ?? products[0];
   const k = UNIT_TO_M[unit];
   const result = useMemo(
-    () =>
-      calculateCoverage(
+    () => {
+      if (!product) return null;
+      return calculateCoverage(
         [{ width: num(width) * k, height: num(height) * k }],
         [],
         { width: product.width, length: product.length, kind: product.kind },
         SPARES,
-      ),
+      );
+    },
     [width, height, k, product],
   );
+  if (!product || !result) return null;
   const ready = result.total > 0;
   const hasWidth = num(width) > 0;
   const hasHeight = num(height) > 0;
@@ -92,7 +99,7 @@ export default function QuickCalculator({ whatsapp }: { whatsapp?: string }) {
             Product
           </label>
           <select id="qc-product" className={inputCls} value={productId} onChange={(e) => setProductId(e.target.value)}>
-            {PRODUCTS.map((p) => (
+            {products.map((p) => (
               <option key={p.id} value={p.id}>
                 {describeProduct(p)}
                 {p.price !== null ? ` · ${naira(p.price)}/${p.unitName}` : ' · price on request'}
