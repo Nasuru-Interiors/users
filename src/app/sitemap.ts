@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { getSitemapArticles } from '@/lib/api';
+import { getProducts, getSitemapArticles } from '@/lib/api';
 import { SITE_URL } from '@/lib/seo';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articles = await getSitemapArticles();
+  const [articles, products] = await Promise.all([getSitemapArticles(), getProducts()]);
 
   const now = new Date();
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -21,5 +21,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...articleRoutes];
+  const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
+    url: `${SITE_URL}/shop/${encodeURIComponent(product.id)}`,
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...articleRoutes, ...productRoutes];
 }

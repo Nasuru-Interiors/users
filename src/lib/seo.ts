@@ -1,4 +1,5 @@
 import type { Article, SiteSettings } from './types';
+import type { Product } from './products';
 import { GOOGLE_PROFILE, OPENING_HOURS } from './google';
 
 const DEFAULT_SITE_URL =
@@ -110,6 +111,45 @@ export function articleJsonLd(article: Article, s: SiteSettings) {
     dateModified: article.updated_at || article.published_at || undefined,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/articles/${article.slug}` },
     keywords: (article.keywords || []).join(', '),
+  };
+}
+
+export function productJsonLd(product: Product, businessName: string) {
+  const galleryUrls = product.galleryImages?.map((image) => image.url) ?? [];
+  const imageUrls = galleryUrls.length
+    ? galleryUrls
+    : product.imageUrl
+      ? [product.imageUrl]
+      : [];
+  const additionalProperty = [
+    { name: 'Listed size', value: product.size },
+    { name: 'Calculator dimensions', value: `${product.width} m × ${product.length} m` },
+    { name: 'Product type', value: product.kind },
+    ...(product.material ? [{ name: 'Material', value: product.material }] : []),
+    ...(product.origin ? [{ name: 'Origin', value: product.origin }] : []),
+    ...(product.thicknessMm != null ? [{ name: 'Thickness', value: `${product.thicknessMm} mm` }] : []),
+    ...(product.specifications ?? []),
+  ].map(({ name, value }) => ({ '@type': 'PropertyValue', name, value }));
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description || `${product.name}, ${product.size}.`,
+    ...(imageUrls.length ? { image: imageUrls } : {}),
+    category: product.kind,
+    additionalProperty,
+    ...(product.price !== null
+      ? {
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'NGN',
+            price: product.price,
+            url: `${SITE_URL}/shop/${encodeURIComponent(product.id)}`,
+            seller: { '@type': 'Organization', name: businessName, url: SITE_URL },
+          },
+        }
+      : {}),
   };
 }
 

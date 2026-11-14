@@ -33,8 +33,23 @@ export interface Product {
   description?: string;
   imageUrl?: string | null;
   imageAlt?: string;
+  galleryImages?: ProductGalleryImage[];
+  installationVideos?: string[];
+  specifications?: ProductSpecification[];
   featured?: boolean;
   sortOrder?: number;
+}
+
+export interface ProductGalleryImage {
+  url: string;
+  alt: string;
+  category: 'product' | 'installation' | 'customer';
+  caption: string;
+}
+
+export interface ProductSpecification {
+  name: string;
+  value: string;
 }
 
 export function describeProduct(product: Product): string {

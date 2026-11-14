@@ -148,7 +148,9 @@ function ProductCard({ product, whatsapp }: { product: Product; whatsapp?: strin
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h2 className="mt-3 font-serif text-xl font-semibold leading-snug text-brand-ink">
-          {product.name}
+          <Link href={`/shop/${encodeURIComponent(product.id)}`} className="transition-colors hover:text-brand-primary">
+            {product.name}
+          </Link>
         </h2>
         {product.description && (
           <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-brand-muted">{product.description}</p>
@@ -183,6 +185,13 @@ function ProductCard({ product, whatsapp }: { product: Product; whatsapp?: strin
               </Link>
             )}
           </div>
+
+          <Link
+            href={`/shop/${encodeURIComponent(product.id)}`}
+            className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:underline"
+          >
+            View product details <ArrowRight size={15} aria-hidden="true" />
+          </Link>
 
           <div className="mt-5 grid gap-2 sm:grid-cols-2">
             <Link

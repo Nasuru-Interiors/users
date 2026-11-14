@@ -101,6 +101,19 @@ export const getProducts = async () => {
   return products.length ? products : PRODUCTS;
 };
 
+export async function getProduct(id: string): Promise<Product | null> {
+  try {
+    const res = await fetch(`${BASE}/api/public/products/${encodeURIComponent(id)}`, {
+      next: { revalidate: REVALIDATE },
+    });
+    if (res.ok) return (await res.json()) as Product;
+    if (res.status === 404) return null;
+  } catch {
+    // Fall back to the local catalogue when the public API is unavailable.
+  }
+  return PRODUCTS.find((product) => product.id === id) ?? null;
+}
+
 export const getArticles = (page = 1, limit = 9, featured = false, category?: string) =>
   get<Paginated<ArticleSummary>>(
     `/articles?page=${page}&limit=${limit}${featured ? '&featured=true' : ''}${
